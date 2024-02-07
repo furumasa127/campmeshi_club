@@ -25,6 +25,11 @@ Rails.application.routes.draw do
     resources :genres, only: [:index, :create, :edit, :update]
     resources :customers, only: [:index, :show, :edit, :update]
     resources :comments, only: [:index, :destroy]
+    resources :recipes, only: [:index, :destroy]
+  end
+  
+  devise_scope :customer do
+    post 'customers/guest_sign_in', to: 'public/sessions#guest_sign_in'
   end
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html

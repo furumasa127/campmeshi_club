@@ -9,19 +9,63 @@
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
-
   <body
     <header>
-    <% if admin_signed_in? %>
+    <% if customer_signed_in? %>
+      <li>
+        <%= link_to "マイページ", current_customer %>
+      </li>
+      <li>
+        <%= link_to "投稿一覧", recipes_path %>
+      </li>
+      <li>
+        <%= link_to "LOGO", root_path %>
+      </li>
+      <li>
+        <%= link_to "新規投稿", new_recipe_path %>
+      </li>
+      <li>
+        <%= link_to "ログアウト", destroy_customer_session_path, method: :delete %>
+      </li>
+    <% elsif admin_signed_in? %>
+      <li>
+        <%= link_to "会員一覧", admin_customers_path %>
+      </li>
+      <li>
+        <%= link_to "投稿一覧", admin_recipes_path %>
+      </li>
+      <li>
+        <%= link_to "LOGO", admin_recipes_path %>
+      </li>
+      <li>
+        <%= link_to "ジャンル一覧", admin_genres_path %>
+      </li>
       <li>
         <%= link_to "ログアウト", destroy_admin_session_path, method: :delete %>
       </li>
     <% else %>
       <li>
-        <%= link_to "ログイン", new_admin_session_path %>
+        <%= link_to 'ゲストログイン', customers_guest_sign_in_path, class: "nav-link", method: :post %>
+      </li>
+      <li>
+        <%= link_to "投稿一覧", recipes_path %>
+      </li>
+      <li>
+        <%= link_to "LOGO", root_path %>
+      </li>
+      <li>
+        <%= link_to "ログイン", new_customer_session_path %>
+      </li>
+      <li>
+        <%= link_to "新規登録", new_customer_registration_path %>
       </li>
     <% end %>
   </header>
+  <main>
+    <% flash.each do |message_type, message| %>
+      <div class="flash-message <%= message_type %>"><%= message %></div>
+    <% end %>
+  </main>
     <%= yield %>
   </body>
 </html>

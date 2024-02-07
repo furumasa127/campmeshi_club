@@ -27,4 +27,11 @@ class Public::SessionsController < Devise::SessionsController
   def after_sign_in_path_for(resource)
     recipes_path
   end
+
+  def guest_sign_in
+    customer = Customer.guest
+    sign_in customer
+    flash[:notice] = "ゲストユーザーとしてログインしました。"
+    redirect_to recipes_path
+  end
 end
