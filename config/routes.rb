@@ -11,13 +11,14 @@ Rails.application.routes.draw do
   root to: "public/homes#top"
   
   scope module: 'public' do
-    resources :customers, only: [:show, :edit, :update]
     get "customers/unsubscribe" => "customers#unsubscribe"
     patch "customers/withdraw" => "customers#withdraw"
+    resources :customers, only: [:show, :edit, :update]
     resources :recipes, only: [:new, :create, :index, :show]
     resources :comments, only: [:index, :create, :destroy]
     resources :likes, only: [:create, :destroy, :index]
     resources :genres, only: [:index]
+    get '/genre/search' => 'searches#genre_search'
   end
   
   namespace :admin do

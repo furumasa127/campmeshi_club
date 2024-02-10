@@ -1,0 +1,28 @@
+<h4>投稿日</h4>
+<%= @recipe.created_at.strftime('%Y/%m/%d') %>
+<h4>調理時間</h4>
+<%= @recipe.cooking_time %>分
+<h4>難易度</h4>
+<div id="difficulty_<%= @recipe.id %>"></div>
+<script>
+  $(document).on('turbolinks:load', function() {
+    let elem = document.querySelector('#difficulty_<%= @recipe.id %>');
+    if (elem == null) return;
+  
+    elem.innerHTML = "";
+    let opt = {
+      starOn: "<%= asset_path('star-on.png') %>",
+      starOff: "<%= asset_path('star-off.png') %>",
+      score: "<%= @recipe.difficulty %>",
+      readOnly: true,
+    };
+    raty(elem, opt);
+  });
+</script>
+<h4>いいね</h4>
+<%= @recipe.customer.name %>
+<%= @recipe.dish_name %>
+<%= image_tag @recipe.image, size: "200x200" %>
+<%= @recipe.explanation %>
+<h3>作り方</h3>
+

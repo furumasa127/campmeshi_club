@@ -1,1 +1,15 @@
-1
+<h3>
+  <%= @customer.name %>
+</h3>
+<h3>
+  <% if @customer.image.attached? %>
+  <%= image_tag @customer.image, size: "150x150" %>
+<% else %>
+  <%= image_tag 'no_image', size: "150x" %>
+<% end %>
+</h3>
+<h4>投稿レシピ</h4>
+<div>
+<%= link_to "編集", edit_customer_path(@customer.id) %>
+<%= link_to "退会する", customers_unsubscribe_path(@customer.id), class: "btn btn-danger mt-4" %>
+</div>

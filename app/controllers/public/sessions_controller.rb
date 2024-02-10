@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Public::SessionsController < Devise::SessionsController
+  before_action :customer_state, only: [:create]
   # before_action :configure_sign_in_params, only: [:create]
 
   # GET /resource/sign_in
@@ -33,5 +34,15 @@ class Public::SessionsController < Devise::SessionsController
     sign_in customer
     flash[:notice] = "ゲストユーザーとしてログインしました。"
     redirect_to recipes_path
+  end
+
+  def customer_state
+    customer = Customer.find_by(email: params[:customer][:email])
+    return if customer.nil?
+    return unless customer.valid_password?(params[:customer][:password])
+    if customer.is_active == true
+    else
+      redirect_to new_customer_registration_path
+    end
   end
 end

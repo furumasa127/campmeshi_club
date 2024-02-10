@@ -1,0 +1,23 @@
+<div class="cooking-process-field form-group">
+  <%= f.hidden_field :_destroy %>
+  <div class="form-group">
+    <%= f.label :cooking_process, raw("ステップ" + content_tag(:span, "（必須）", class: "required-label")) %>
+    <div class="input-group">
+      <%= f.text_area :cooking_process, class: "form-control", rows: "2" %>
+      <div class="input-group-append">
+        <button type="button" class="btn btn-danger remove-instruction">
+          <i class="fas fa-trash-alt"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  $(document).ready(function(){
+    $(document).on('click', '.remove-cooking_process', function(){
+      $(this).closest('.cooking_process-field').find("input[name$='[_destroy]']").val('true');
+      $(this).closest('.cooking_process-field').hide(); 
+    });
+  });
+</script>
