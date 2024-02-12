@@ -1,9 +1,12 @@
 <div class="cooking-process-field form-group">
   <%= f.hidden_field :_destroy %>
   <div class="form-group">
-    <%= f.label :cooking_process, raw("ステップ" + content_tag(:span, "（必須）", class: "required-label")) %>
+    <%= f.label :cooking_process, raw("作り方" + content_tag(:span, "（必須）", class: "required-label")) %>
     <div class="input-group">
       <%= f.text_area :cooking_process, class: "form-control", rows: "2" %>
+      <div class="field">
+        <%= f.file_field :image%>
+      </div>
       <div class="input-group-append">
         <button type="button" class="btn btn-danger remove-instruction">
           <i class="fas fa-trash-alt"></i>

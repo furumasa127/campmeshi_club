@@ -25,6 +25,8 @@ class Public::RecipesController < ApplicationController
 
   def show
     @recipe = Recipe.find(params[:id])
+    @recipe.recipe_details = RecipeDetail.where(recipe_id: params[:id])
+    @recipe.recipe_steps = RecipeStep.where(recipe_id: params[:id])
   end
 
   private
@@ -32,8 +34,8 @@ class Public::RecipesController < ApplicationController
   def recipe_params
     params.require(:recipe).permit(
       :dish_name, :explanation, :difficulty, :cooking_time, :image, :genre_id,
-      recipes_details_attributes: [:id, :ingredient, :quantity],
-      recipe_steps_attributes: [:id, :cooking_process]
+      recipe_details_attributes: [:id, :ingredient, :quantity],
+      recipe_steps_attributes: [:id, :cooking_process, :image]
       )
   end
 end

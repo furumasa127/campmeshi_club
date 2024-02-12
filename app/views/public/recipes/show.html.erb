@@ -24,5 +24,19 @@
 <%= @recipe.dish_name %>
 <%= image_tag @recipe.image, size: "200x200" %>
 <%= @recipe.explanation %>
+
+<h3>材料</h3>
+<% @recipe.recipe_details.each do |detail| %>
+  <p><%= detail.ingredient %></p>
+  <p><%= detail.quantity %></p>
+<% end %>
+
 <h3>作り方</h3>
+<% @recipe.recipe_steps.each do |step| %>
+  <p><%= step.cooking_process %></p>
+  <% if step.image.attached? %>
+    <%= image_tag step.image, size: "200x200" %>
+  <% end %>
+<% end %>
+
 

@@ -19,6 +19,7 @@ Rails.application.routes.draw do
     resources :likes, only: [:create, :destroy, :index]
     resources :genres, only: [:index]
     get '/genre/search' => 'searches#genre_search'
+    get "/search", to: "searches#search"
   end
   
   namespace :admin do
