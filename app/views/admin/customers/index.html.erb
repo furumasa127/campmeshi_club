@@ -1,0 +1,30 @@
+<h3>会員一覧</h3>
+<table class="table table-hover table-inverse col-9">
+  <tr class="table-active">
+    <th class="col-1">会員ID</th>
+    <th class="col-2">ユーザ名</th>
+    <th class="col-2">メールアドレス</th>
+    <th class="col-2">ステータス</th>
+  </tr>
+  <% @customers.each do |customer| %>
+    <tr>
+      <td>
+        <%= customer.id %>
+      </td>
+      <td>
+        <%= link_to customer.name, admin_customer_path(customer.id) %>
+      </td>
+      <td>
+        <%= customer.email %>
+      </td>
+      <td>
+        <% if customer.is_active %>
+          <p class="text-success"><strong>有効</strong></p>
+        <% elsif %>
+          <p class="text-muted"><strong>退会</strong></p>
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
+</table>
+<%= paginate(@customers) %>

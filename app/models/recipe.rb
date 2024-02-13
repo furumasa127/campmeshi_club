@@ -19,4 +19,6 @@ class Recipe < ApplicationRecord
       Recipe.where('dish_name LIKE ?', '%' + content + '%')
     end
   end
+  
+  scope :latest, -> {order(created_at: :desc)}
 end

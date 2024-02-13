@@ -9,7 +9,38 @@
 <% end %>
 </h3>
 <h4>投稿レシピ</h4>
-<div>
-<%= link_to "編集", edit_customer_path(@customer.id) %>
-<%= link_to "退会する", customers_unsubscribe_path(@customer.id), class: "btn btn-danger mt-4" %>
-</div>
+<% @recipes.each do |recipe| %>
+  <h4>投稿日</h4>
+  <%= recipe.created_at.strftime('%Y/%m/%d') %>
+  <%= recipe.cooking_time %>分
+  <h4>難易度</h4>
+  <div id="difficulty_<%= recipe.id %>"></div>
+  <script>
+    $(document).on('turbolinks:load', function() {
+      let elem = document.querySelector('#difficulty_<%= recipe.id %>');
+      if (elem == null) return;
+
+      elem.innerHTML = "";
+      let opt = {
+        starOn: "<%= asset_path('star-on.png') %>",
+        starOff: "<%= asset_path('star-off.png') %>",
+        score: "<%= recipe.difficulty %>",
+        readOnly: true,
+      };
+      raty(elem, opt);
+    });
+  </script>
+  <%= recipe.customer.name %>
+  <%= recipe.dish_name %>
+  <%= recipe.explanation %>
+  <% if recipe.image %>
+    <%= image_tag recipe.image, size: "200x200" %>
+  <% end %>
+<% end %>
+<%= paginate(@recipes) %>
+<% if current_customer.id == @customer.id %>
+  <div>
+    <%= link_to "編集", edit_customer_path(@customer.id) %>
+    <%= link_to "退会する", customers_unsubscribe_path(@customer.id), class: "btn btn-danger mt-4" %>
+  </div>
+<% end %>

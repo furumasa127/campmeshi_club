@@ -9,7 +9,7 @@
     $(document).on('turbolinks:load', function() {
       let elem = document.querySelector('#difficulty_<%= recipe.id %>');
       if (elem == null) return;
-    
+
       elem.innerHTML = "";
       let opt = {
         starOn: "<%= asset_path('star-on.png') %>",
@@ -27,7 +27,7 @@
     <%= image_tag recipe.image, size: "200x200" %>
   <% end %>
 <% end %>
-
+<%= paginate(@recipes) %>
 <%= form_with url: genre_search_path, method: :get do |f| %>
     <% @genres.each do |genre| %>
       <tr>

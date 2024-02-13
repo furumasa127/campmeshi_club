@@ -1,0 +1,29 @@
+
+  <% @recipes.each do |recipe| %>
+      <tr>
+        <td><%= recipe.created_at.strftime('%Y/%m/%d') %></td>
+        <td><%= recipe.cooking_time %>分</td>
+        <div id="difficulty_<%= recipe.id %>"></div>
+        <script>
+          $(document).on('turbolinks:load', function() {
+            let elem = document.querySelector('#difficulty_<%= recipe.id %>');
+            if (elem == null) return;
+
+            elem.innerHTML = "";
+            let opt = {
+              starOn: "<%= asset_path('star-on.png') %>",
+              starOff: "<%= asset_path('star-off.png') %>",
+              score: "<%= recipe.difficulty %>",
+              readOnly: true,
+            };
+            raty(elem, opt);
+          });
+        </script>
+        <%= link_to recipe_path(recipe.id) do %>
+          <td><%= recipe.dish_name %></td>
+        <% end %>
+        <td><%= recipe.explanation %></td>
+        <td><%= recipe.customer.name %></td>
+        <td><%= image_tag recipe.image, size: "200x200" %></td>
+      </tr>
+    <% end %>

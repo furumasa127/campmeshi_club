@@ -1,4 +1,11 @@
 <h1>今日のイチオシレシピ</h1>
+<% @recipes.each do |recipe| %>
+  <%= recipe.customer.name %>
+  <% if recipe.image %>
+    <%= image_tag recipe.image, size: "200x200" %>
+  <% end %>
+  <%= recipe.dish_name %>
+<% end %>
 <%= form_with url: genre_search_path, method: :get do |f| %>
     <% @genres.each do |genre| %>
       <tr>
@@ -6,3 +13,4 @@
       </tr>
     <% end %>
 <% end %>
+<%= link_to "すべての商品を見る＞", recipes_path %>

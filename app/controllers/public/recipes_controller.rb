@@ -19,7 +19,7 @@ class Public::RecipesController < ApplicationController
   end
 
   def index
-    @recipes = Recipe.order(created_at: :desc)
+    @recipes = Recipe.latest.page(params[:page]).per(10)
     @genres = Genre.all
   end
 

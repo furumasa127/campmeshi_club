@@ -1,0 +1,31 @@
+<h3>レシピ一覧</h3>
+<table class="table table-hover table-inverse col-9">
+  <tr class="table-active">
+    <th class="col-1">レシピID</th>
+    <th class="col-2">投稿日</th>
+    <th class="col-2">レシピ名</th>
+    <th class="col-2">ユーザ名</th>
+    <th class="col-2"></th>
+  </tr>
+  <% @recipes.each do |recipe| %>
+    <tr>
+      <td>
+        <%= recipe.id %>
+      </td>
+      <td>
+        <%= recipe.created_at.strftime('%Y/%m/%d') %>
+      </td>
+      <td>
+        <%= recipe.dish_name %>
+      </td>
+      <td>
+       <%= recipe.customer.name %>
+      </td>
+      <td>
+        <%= link_to "コメント一覧へ", admin_comments_path %>
+        <%= link_to "削除する", admin_recipe_path(recipe.id), method: :delete, "data-confirm" => "商品を削除しますか？", class: "btn btn-danger"%>
+      </td>
+    </tr>
+  <% end %>
+</table>
+<%= paginate(@recipes) %>

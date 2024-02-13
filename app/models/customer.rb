@@ -14,4 +14,6 @@ class Customer < ApplicationRecord
       customer.name = "ゲスト"
     end
   end
+  
+  scope :latest, -> {order(created_at: :desc)}
 end
