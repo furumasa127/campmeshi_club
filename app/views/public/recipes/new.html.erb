@@ -34,60 +34,51 @@
       <%= render "static_rate", recipe: recipe %>
     </div>
   <% end %>
-
   <h4>料理ジャンル</h4>
   <%= f.collection_select :genre_id, Genre.all, :id, :name, include_blank: "選択して下さい" %>
-
   <h4>料理説明</h4>
   <%= f.text_area :explanation %>
-
-   <div id="details-field-template" style="display: none;">
-      <%= f.fields_for :ingredient, RecipeDetail.new, child_index: "new_recipe_details" do |recipe_detail_field| %>
-        <%= render 'details_field', f: recipe_detail_field %>
-      <% end %>
-    </div>
-
-    <%= f.fields_for :recipe_details do |recipe_detail_field| %>
+  <div id="details-field-template" style="display: none;">
+    <%= f.fields_for :ingredient, RecipeDetail.new, child_index: "new_recipe_details" do |recipe_detail_field| %>
       <%= render 'details_field', f: recipe_detail_field %>
     <% end %>
-    <div id="details"></div>
-    <div>
-      <button type="button" id="add-detail" class="btn mb-4"  style="background-color: #FFD5EC;">材料を追加</button>
-    </div>
-
-    <div id="steps-field-template" style="display: none;">
-      <%= f.fields_for :recipe_steps, RecipeStep.new, child_index: "new_recipe_step" do |recipe_step_field| %>
-        <%= render 'steps_field', f: recipe_step_field %>
-      <% end %>
-    </div>
-
-    <%= f.fields_for :recipe_steps do |recipe_step_field| %>
+  </div>
+  <%= f.fields_for :recipe_details do |recipe_detail_field| %>
+    <%= render 'details_field', f: recipe_detail_field %>
+  <% end %>
+  <div id="details"></div>
+  <div>
+    <button type="button" id="add-detail" class="btn mb-4"  style="background-color: #FFD5EC;">材料を追加</button>
+  </div>
+  <div id="steps-field-template" style="display: none;">
+    <%= f.fields_for :recipe_steps, RecipeStep.new, child_index: "new_recipe_step" do |recipe_step_field| %>
       <%= render 'steps_field', f: recipe_step_field %>
     <% end %>
-    <div id="recipe_steps"></div>
-    <div>
-      <button type="button" id="add-recipe_step" class="btn"  style="background-color: #FFD5EC;">作り方を追加</button>
-    </div>
-    <script>
-      document.addEventListener("DOMContentLoaded", function() {
-        document.getElementById("add-detail").addEventListener("click", function() {
-          var content = document.getElementById("details-field-template").innerHTML;
-          var uniqueId = new Date().getTime();
-          content = content.replace(/new_ingredient/g, uniqueId);
-          document.getElementById("details").insertAdjacentHTML('beforeend', content);
-        });
+  </div>
+  <%= f.fields_for :recipe_steps do |recipe_step_field| %>
+    <%= render 'steps_field', f: recipe_step_field %>
+  <% end %>
+  <div id="recipe_steps"></div>
+  <div>
+    <button type="button" id="add-recipe_step" class="btn"  style="background-color: #FFD5EC;">作り方を追加</button>
+  </div>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      document.getElementById("add-detail").addEventListener("click", function() {
+        var content = document.getElementById("details-field-template").innerHTML;
+        var uniqueId = new Date().getTime();
+        content = content.replace(/new_ingredient/g, uniqueId);
+        document.getElementById("details").insertAdjacentHTML('beforeend', content);
       });
-
-      document.addEventListener('DOMContentLoaded', () => {
-        document.querySelector('#add-recipe_step').addEventListener('click', () => {
-          let content = document.getElementById('steps-field-template').innerHTML;
-          let uniqueId = new Date().getTime();
-          content = content.replace(/new_recipe_step/g, uniqueId);
-          document.getElementById('recipe_steps').insertAdjacentHTML('beforeend', content);
-        });
+    });
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelector('#add-recipe_step').addEventListener('click', () => {
+        let content = document.getElementById('steps-field-template').innerHTML;
+        let uniqueId = new Date().getTime();
+        content = content.replace(/new_recipe_step/g, uniqueId);
+        document.getElementById('recipe_steps').insertAdjacentHTML('beforeend', content);
       });
-    </script>
-
-
+    });
+  </script>
   <%= f.submit 'レシピ投稿' %>
 <% end %>

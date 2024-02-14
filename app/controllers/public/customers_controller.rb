@@ -24,6 +24,11 @@ class Public::CustomersController < ApplicationController
     reset_session
     redirect_to current_customer
   end
+  
+  def likes
+    likes = Like.where(customer_id: current_customer.id).pluck(:recipe_id)
+    @like_list = Recipe.find(likes)
+  end
 
   private
 

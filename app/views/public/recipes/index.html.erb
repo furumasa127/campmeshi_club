@@ -2,6 +2,7 @@
 <% @recipes.each do |recipe| %>
   <h4>投稿日</h4>
   <%= recipe.created_at.strftime('%Y/%m/%d') %>
+  <i class="fa-regular fa-clock"></i>
   <%= recipe.cooking_time %>分
   <h4>難易度</h4>
   <div id="difficulty_<%= recipe.id %>"></div>
@@ -20,6 +21,7 @@
       raty(elem, opt);
     });
   </script>
+  ❤️<%= recipe.likes.count %>いいね
   <%= recipe.customer.name %>
   <%= recipe.dish_name %>
   <%= recipe.explanation %>
@@ -35,3 +37,4 @@
       </tr>
     <% end %>
 <% end %>
+<script src="https://kit.fontawesome.com/9c11671e7c.js" crossorigin="anonymous"></script>

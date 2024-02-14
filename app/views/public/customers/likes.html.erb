@@ -1,0 +1,5 @@
+<% if @like_list.present? %>
+  <% @like_list.each do |recipe| %>
+    <%= recipe.dish_name %>
+    <% end %>
+<% end %>

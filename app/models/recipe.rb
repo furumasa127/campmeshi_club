@@ -6,6 +6,7 @@ class Recipe < ApplicationRecord
   has_many :recipe_steps, dependent: :destroy
   accepts_nested_attributes_for :recipe_steps, reject_if: :all_blank, allow_destroy: true
   has_one_attached :image
+  has_many :likes, dependent: :destroy
   validates :image, presence: true
 
   def self.search_for(content, method)
@@ -18,6 +19,10 @@ class Recipe < ApplicationRecord
     else
       Recipe.where('dish_name LIKE ?', '%' + content + '%')
     end
+  end
+  
+  def liked_by?(customer)
+    likes.exists?(customer_id: customer.id)
   end
   
   scope :latest, -> {order(created_at: :desc)}

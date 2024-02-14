@@ -1,6 +1,8 @@
+<script src="https://kit.fontawesome.com/9c11671e7c.js" crossorigin="anonymous"></script>
 <h4>投稿日</h4>
 <%= @recipe.created_at.strftime('%Y/%m/%d') %>
 <h4>調理時間</h4>
+<i class="fa-regular fa-clock"></i>
 <%= @recipe.cooking_time %>分
 <h4>難易度</h4>
 <div id="difficulty_<%= @recipe.id %>"></div>
@@ -8,7 +10,7 @@
   $(document).on('turbolinks:load', function() {
     let elem = document.querySelector('#difficulty_<%= @recipe.id %>');
     if (elem == null) return;
-  
+
     elem.innerHTML = "";
     let opt = {
       starOn: "<%= asset_path('star-on.png') %>",
@@ -19,7 +21,19 @@
     raty(elem, opt);
   });
 </script>
-<h4>いいね</h4>
+<% if @recipe.liked_by?(current_customer) %>
+  <p>
+    <%= link_to recipe_like_path(@recipe), method: :delete do %>
+      ♥<%= @recipe.likes.count %> いいね
+    <% end %>
+  </p>
+  <% else %>
+  <p>
+    <%= link_to recipe_like_path(@recipe), method: :post do %>
+      ♡<%= @recipe.likes.count %> いいね
+    <% end %>
+  </p>
+<% end %>
 <%= @recipe.customer.name %>
 <%= @recipe.dish_name %>
 <%= image_tag @recipe.image, size: "200x200" %>

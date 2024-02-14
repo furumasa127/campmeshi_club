@@ -42,5 +42,12 @@
   <div>
     <%= link_to "編集", edit_customer_path(@customer.id) %>
     <%= link_to "退会する", customers_unsubscribe_path(@customer.id), class: "btn btn-danger mt-4" %>
+    <%= link_to "いいね履歴", likes_customers_path %>
   </div>
+<% end %>
+
+<% if @like_list.present? %>
+  <% @like_list.each do |recipe| %>
+    <%= recipe.dish_name %>
+    <% end %>
 <% end %>
