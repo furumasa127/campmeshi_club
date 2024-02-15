@@ -7,6 +7,7 @@ class Recipe < ApplicationRecord
   accepts_nested_attributes_for :recipe_steps, reject_if: :all_blank, allow_destroy: true
   has_one_attached :image
   has_many :likes, dependent: :destroy
+  has_many :comments, dependent: :destroy
   validates :image, presence: true
 
   def self.search_for(content, method)

@@ -1,5 +1,7 @@
+<h3>favorite recipes</h3>
 <% if @like_list.present? %>
   <% @like_list.each do |recipe| %>
-    <%= recipe.dish_name %>
-    <% end %>
+    <%= image_tag recipe.image, size: "200x200" %>
+  <% end %>
 <% end %>
+<%= paginate @like_list %>

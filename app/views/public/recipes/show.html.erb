@@ -54,3 +54,16 @@
 <% end %>
 
 
+<p>コメント件数:<%= @recipe.comments.count %></p>
+<% @recipe.comments.each do |comment| %>
+  <%= comment.customer.name %>
+  <%= comment.comment %>
+  <% if comment.customer == current_customer %>
+  <%= link_to "削除", recipe_comment_path(comment.recipe, comment), method: :delete %>
+<% end %>
+<% end %>
+<%= form_with model: [@recipe, @comment] do |f| %>
+  <%= f.text_area :comment, rows: '5', placeholder: "コメントを入力してください" %>
+  <%= f.submit "コメント送信" %>
+<% end %>
+

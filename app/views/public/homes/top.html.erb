@@ -1,10 +1,10 @@
 <h1>今日のイチオシレシピ</h1>
 <% @recipes.each do |recipe| %>
-  <%= recipe.customer.name %>
-  <% if recipe.image %>
+  <%= link_to recipe.customer.name, customer_path(recipe.customer.id) %>
+  <%= link_to recipe_path(recipe.id) do %>
     <%= image_tag recipe.image, size: "200x200" %>
   <% end %>
-  <%= recipe.dish_name %>
+  <%= link_to recipe.dish_name, recipe_path(recipe.id) %>
 <% end %>
 <%= form_with url: genre_search_path, method: :get do |f| %>
     <% @genres.each do |genre| %>

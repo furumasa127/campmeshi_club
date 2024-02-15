@@ -27,8 +27,9 @@ class Public::RecipesController < ApplicationController
     @recipe = Recipe.find(params[:id])
     @recipe.recipe_details = RecipeDetail.where(recipe_id: params[:id])
     @recipe.recipe_steps = RecipeStep.where(recipe_id: params[:id])
+    @comment = Comment.new
   end
-
+  
   private
 
   def recipe_params

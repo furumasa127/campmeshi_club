@@ -14,10 +14,10 @@ Rails.application.routes.draw do
     get "customers/unsubscribe" => "customers#unsubscribe"
     patch "customers/withdraw" => "customers#withdraw"
     resources :customers, only: [:show, :edit, :update] do
-      get :likes, on: :collection 
+      get :likes, on: :collection
     end
     resources :recipes, only: [:new, :create, :index, :show] do
-      resources :comments, only: [:index, :create, :destroy]
+      resources :comments, only: [:create, :destroy]
       resource :like, only: [:create, :destroy]
     end
     resources :genres, only: [:index]
