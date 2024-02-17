@@ -16,7 +16,7 @@ Rails.application.routes.draw do
     resources :customers, only: [:show, :edit, :update] do
       get :likes, on: :collection
     end
-    resources :recipes, only: [:new, :create, :index, :show] do
+    resources :recipes, only: [:new, :create, :index, :show, :destroy] do
       resources :comments, only: [:create, :destroy]
       resource :like, only: [:create, :destroy]
     end

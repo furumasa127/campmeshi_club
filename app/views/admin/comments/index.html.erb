@@ -1,0 +1,22 @@
+<h3>コメント一覧</h3>
+<table>
+  <tr>
+    <th>名前</th>
+    <th>料理名</th>
+    <th>コメント</th>
+    <th></th>
+    <th></th>
+  </tr>
+
+  <% @comments.each do |comment| %>
+    <tr>
+      <td><%= @customers.find(comment.customer_id).name %></td>
+      <td><%= @recipes.find(comment.recipe_id).dish_name %></td>
+      <td><%= comment.comment %></td>
+      <td><%= comment.created_at.strftime('%Y/%m/%d') %></td>
+      <td>
+        <%= link_to "削除", admin_comment_path(comment), method: :delete, data: { confirm: '本当に削除しますか？' },class: "btn btn-danger" %>
+      </td>
+    </tr>
+  <% end %>
+</table>

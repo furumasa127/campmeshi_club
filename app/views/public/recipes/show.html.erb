@@ -59,11 +59,13 @@
   <%= comment.customer.name %>
   <%= comment.comment %>
   <% if comment.customer == current_customer %>
-  <%= link_to "削除", recipe_comment_path(comment.recipe, comment), method: :delete %>
+  <%= link_to "コメント削除", recipe_comment_path(comment.recipe, comment), method: :delete %>
 <% end %>
 <% end %>
 <%= form_with model: [@recipe, @comment] do |f| %>
   <%= f.text_area :comment, rows: '5', placeholder: "コメントを入力してください" %>
   <%= f.submit "コメント送信" %>
 <% end %>
-
+<% if @recipe.customer == current_customer %>
+  <%= link_to "投稿を削除する", recipe_path(@recipe), method: :delete, data: { confirm: '本当に削除しますか？' }, class: "btn btn-danger" %>
+<% end %>
