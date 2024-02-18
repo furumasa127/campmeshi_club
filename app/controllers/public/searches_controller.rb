@@ -5,12 +5,9 @@ class Public::SearchesController < ApplicationController
   end
   
   def search
-    @model = params[:model]
     @content = params[:content]
     @method = params[:method]
-    if @model == "recipe"
-      @records = Recipe.search_for(@content, @method)
-    end
+    @records = Recipe.search_for(@content, @method)
   end
       
 end

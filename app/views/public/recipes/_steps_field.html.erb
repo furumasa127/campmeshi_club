@@ -1,4 +1,4 @@
-<div class="cooking-process-field form-group">
+<div class="cooking_process-field form-group">
   <%= f.hidden_field :_destroy %>
   <div class="form-group">
     <%= f.label :cooking_process, raw("作り方" + content_tag(:span, "（必須）", class: "required-label")) %>
@@ -8,7 +8,7 @@
         <%= f.file_field :image%>
       </div>
       <div class="input-group-append">
-        <button type="button" class="btn btn-danger remove-instruction">
+        <button type="button" class="btn btn-danger remove-cooking_process">
           <i class="fas fa-trash-alt"></i>
         </button>
       </div>
@@ -17,7 +17,7 @@
 </div>
 
 <script>
-  $(document).ready(function(){
+  $(document).on('turbolinks:load', function() {
     $(document).on('click', '.remove-cooking_process', function(){
       $(this).closest('.cooking_process-field').find("input[name$='[_destroy]']").val('true');
       $(this).closest('.cooking_process-field').hide(); 

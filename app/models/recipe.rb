@@ -9,6 +9,10 @@ class Recipe < ApplicationRecord
   has_many :likes, dependent: :destroy
   has_many :comments, dependent: :destroy
   validates :image, presence: true
+  validates :dish_name, presence: true
+  validates :explanation, presence: true
+  validates :difficulty, presence: true
+  validates :cooking_time, presence: true
 
   def self.search_for(content, method)
     if method == 'perfect'

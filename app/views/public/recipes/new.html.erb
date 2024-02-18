@@ -62,23 +62,22 @@
   <div>
     <button type="button" id="add-recipe_step" class="btn"  style="background-color: #FFD5EC;">作り方を追加</button>
   </div>
-  <script>
-    document.addEventListener("DOMContentLoaded", function() {
-      document.getElementById("add-detail").addEventListener("click", function() {
-        var content = document.getElementById("details-field-template").innerHTML;
-        var uniqueId = new Date().getTime();
-        content = content.replace(/new_ingredient/g, uniqueId);
-        document.getElementById("details").insertAdjacentHTML('beforeend', content);
-      });
-    });
-    document.addEventListener('DOMContentLoaded', () => {
+  <script data-turbolinks-eval="false">
+   $(document).on('turbolinks:load', function() {
+      const add_detail_script = () => {
+          var content = document.getElementById("details-field-template").innerHTML;
+          var uniqueId = new Date().getTime();
+          content = content.replace(/new_ingredient/g, uniqueId);
+          document.getElementById("details").insertAdjacentHTML('beforeend', content);
+      }
+      document.getElementById("add-detail").addEventListener("click", add_detail_script);
       document.querySelector('#add-recipe_step').addEventListener('click', () => {
         let content = document.getElementById('steps-field-template').innerHTML;
         let uniqueId = new Date().getTime();
         content = content.replace(/new_recipe_step/g, uniqueId);
         document.getElementById('recipe_steps').insertAdjacentHTML('beforeend', content);
       });
-    });
+   });
   </script>
   <%= f.submit 'レシピ投稿' %>
 <% end %>
