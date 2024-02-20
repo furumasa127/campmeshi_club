@@ -15,6 +15,9 @@ Rails.application.routes.draw do
     patch "customers/withdraw" => "customers#withdraw"
     resources :customers, only: [:show, :edit, :update] do
       get :likes, on: :collection
+      resource :relationships, only: [:create, :destroy]
+    	get "followings" => "relationships#followings", as: "followings"
+    	get "followers" => "relationships#followers", as: "followers"
     end
     resources :recipes, only: [:new, :create, :index, :show, :destroy] do
       resources :comments, only: [:create, :destroy]

@@ -35,6 +35,7 @@
   </p>
 <% end %>
 <%= @recipe.customer.name %>
+<%= render "public/relationships/btn", customer: @recipe.customer, options: { class: "follow-link" } %>
 <%= @recipe.dish_name %>
 <%= image_tag @recipe.image, size: "200x200" %>
 <%= @recipe.explanation %>

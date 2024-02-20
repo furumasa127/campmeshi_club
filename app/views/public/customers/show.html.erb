@@ -1,6 +1,19 @@
 <h3>
   <%= @customer.name %>
 </h3>
+<h3>follows</h3>
+<%= link_to @customer.followings.count, customer_followings_path(@customer) %>
+<h3>followers</h3>
+<%= link_to @customer.followers.count, customer_followers_path(@customer) %>
+<div class="row">
+  <% if current_customer != @customer %>
+    <td><%= render "/public/relationships/btn", customer: @customer, options: { class: ""} %></td>
+  <% else %>
+    <%= link_to edit_customer_path(@customer), class: "btn btn-outline-secondary btn-block" do %>
+      <i class="fas fa-user-cog"></i>
+    <% end %>
+  <% end %>
+</div>
 <h3>
   <% if @customer.image.attached? %>
   <%= image_tag @customer.image, size: "150x150" %>
@@ -40,7 +53,6 @@
 <%= paginate(@recipes) %>
 <% if current_customer.id == @customer.id %>
   <div>
-    <%= link_to "編集", edit_customer_path(@customer.id) %>
     <%= link_to "退会する", customers_unsubscribe_path(@customer.id), class: "btn btn-danger mt-4" %>
     <%= link_to "いいね履歴", likes_customers_path %>
   </div>
