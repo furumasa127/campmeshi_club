@@ -1,6 +1,6 @@
 class Recipe < ApplicationRecord
   belongs_to :customer
-  belongs_to :genre
+  belongs_to :genre, optional: true
   has_many :recipe_details, dependent: :destroy
   accepts_nested_attributes_for :recipe_details, reject_if: :all_blank, allow_destroy: true
   has_many :recipe_steps, dependent: :destroy
@@ -8,11 +8,11 @@ class Recipe < ApplicationRecord
   has_one_attached :image
   has_many :likes, dependent: :destroy
   has_many :comments, dependent: :destroy
-  validates :image, presence: true
-  validates :dish_name, presence: true
-  validates :explanation, presence: true
-  validates :difficulty, presence: true
-  validates :cooking_time, presence: true
+  
+
+  
+  
+  enum status: { published: 0, draft: 1, unpublished: 2 }
 
   def self.search_for(content, method)
     if method == 'perfect'
@@ -31,4 +31,11 @@ class Recipe < ApplicationRecord
   end
   
   scope :latest, -> {order(created_at: :desc)}
+  
+    validates :image, presence: true, on: :publish
+    validates :dish_name, presence: true, on: :publish
+    validates :explanation, presence: true, on: :publish
+    validates :difficulty, presence: true, on: :publish
+    validates :cooking_time, presence: true, on: :publish
+    validates :genre_id, presence: true, on: :publish
 end

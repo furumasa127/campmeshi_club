@@ -1,4 +1,3 @@
-<script src="https://kit.fontawesome.com/9c11671e7c.js" crossorigin="anonymous"></script>
 <h3>New Recipe</h3>
 <%= form_with model: @recipe,url: recipes_path, method: :post do |f| %>
   <h4>料理名</h4>
@@ -63,7 +62,7 @@
     <button type="button" id="add-recipe_step" class="btn"  style="background-color: #FFD5EC;">作り方を追加</button>
   </div>
   <script data-turbolinks-eval="false">
-   $(document).on('turbolinks:load', function() {
+    $(document).on('turbolinks:load', function() {
       const add_detail_script = () => {
           var content = document.getElementById("details-field-template").innerHTML;
           var uniqueId = new Date().getTime();
@@ -80,4 +79,21 @@
    });
   </script>
   <%= f.submit 'レシピ投稿' %>
+  <div class="btn-group" role="group" id="buttonGroup">
+    <% if @recipe.persisted? %>
+      <% if @recipe.draft? %>
+        <%= f.submit '下書き保存', id: 'draftButton', name: 'draft', class: "draft-btn" %>
+        <%= f.submit '公開する', id: 'publishButton', name: 'published', class: "submit-btn" %>
+      <% elsif @recipe.unpublished? %>
+        <%= f.submit '非公開にする', id: 'unpublishButton', name: 'unpublished', class: "unpublish-btn" %>
+        <%= f.submit '公開する', id: 'publishButton', name: 'published', class: "submit-btn" %>
+      <% else %>
+        <%= f.submit '非公開にする', id: 'unpublishButton', name: 'unpublished', class: "unpublish-btn" %>
+        <%= f.submit '公開する', id: 'publishButton', name: 'published', class: "submit-btn" %>
+      <% end %>
+    <% else %>
+        <%= f.submit '下書き保存', id: 'draftButton', name: 'draft', class: "draft-btn" %>
+        <%= f.submit '公開する', id: 'postButton', name: 'post', class: "submit-btn" %>
+    <% end %>
+  </div>
 <% end %>

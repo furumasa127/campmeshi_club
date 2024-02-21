@@ -13,13 +13,15 @@ Rails.application.routes.draw do
   scope module: 'public' do
     get "customers/unsubscribe" => "customers#unsubscribe"
     patch "customers/withdraw" => "customers#withdraw"
+    get "/customers/:id/draft" => "customers#draft", as: "draft"
+    get "/customers/:id/draft/edit" => "customers#draft", as: "draft_edit"
     resources :customers, only: [:show, :edit, :update] do
       get :likes, on: :collection
       resource :relationships, only: [:create, :destroy]
     	get "followings" => "relationships#followings", as: "followings"
     	get "followers" => "relationships#followers", as: "followers"
     end
-    resources :recipes, only: [:new, :create, :index, :show, :destroy] do
+    resources :recipes, only: [:new, :create, :index, :show, :destroy, :update] do
       resources :comments, only: [:create, :destroy]
       resource :like, only: [:create, :destroy]
     end

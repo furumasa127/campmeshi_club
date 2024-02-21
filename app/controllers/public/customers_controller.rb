@@ -2,7 +2,7 @@ class Public::CustomersController < ApplicationController
   before_action :authenticate_customer!
   def show
     @customer = Customer.find(params[:id])
-    @recipes = @customer.recipes.page(params[:page]).per(10)
+    @recipes = @customer.recipes.published.page(params[:page]).per(10)
   end
 
   def edit
@@ -29,6 +29,11 @@ class Public::CustomersController < ApplicationController
     likes = Like.where(customer_id: current_customer.id).pluck(:recipe_id)
     @like_list = Recipe.find(likes)
     @like_list = Kaminari.paginate_array(@like_list).page(params[:page]).per(9)
+  end
+  
+  def draft
+    @recipes = current_customer.recipes.draft.page(params[:page]).reverse_order
+    @genres = Genre.all
   end
 
   private

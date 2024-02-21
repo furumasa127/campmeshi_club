@@ -109,11 +109,12 @@ ActiveRecord::Schema.define(version: 2024_02_19_122633) do
 
   create_table "recipes", force: :cascade do |t|
     t.integer "customer_id", null: false
-    t.integer "genre_id", null: false
-    t.string "dish_name", null: false
-    t.string "explanation", null: false
-    t.integer "difficulty", null: false
-    t.integer "cooking_time", null: false
+    t.integer "genre_id"
+    t.string "dish_name"
+    t.string "explanation"
+    t.integer "difficulty"
+    t.integer "cooking_time"
+    t.integer "status", default: 0
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

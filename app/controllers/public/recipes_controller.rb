@@ -10,16 +10,31 @@ class Public::RecipesController < ApplicationController
   def create
     @recipe = Recipe.new(recipe_params)
     @recipe.customer_id = current_customer.id
-    if @recipe.save
-      redirect_to recipe_path(@recipe.id), notice: '投稿しました'
+    if params[:draft].present?
+      @recipe.status = :draft
     else
-      flash.now[:alert] = '投稿に失敗しました。必須の項目を入力してください'
-      render :new
+      @recipe.status = :published
+    end
+    if params[:draft]
+     
+      if @recipe.save
+        redirect_to draft_path(@recipe.customer_id), notice: '下書きが保存されました。'
+      else
+        render :new
+      end
+    else
+
+      if @recipe.save(context: :publish)
+        redirect_to recipe_path(@recipe.id), notice: '投稿しました'
+      else
+        render :new
+      end
+      
     end
   end
 
   def index
-    @recipes = Recipe.latest.page(params[:page]).per(10)
+    @recipes = Recipe.published.order(created_at: :desc).page(params[:page]).per(12)
     @genres = Genre.all
   end
 
@@ -29,18 +44,50 @@ class Public::RecipesController < ApplicationController
     @recipe.recipe_steps = RecipeStep.where(recipe_id: params[:id])
     @comment = Comment.new
   end
-  
+
   def destroy
     recipe = Recipe.find(params[:id])
     recipe.destroy
     redirect_to recipes_path
+  end
+
+  def edit
+    @recipe = Recipe.find(params[:id])
+    @customer = current_customer
+  end
+
+  def update
+    @customer = current_customer
+    @recipe = Recipe.find(params[:id])
+
+    @recipe.assign_attributes(recipe_params)
+
+    if params[:draft].present?
+      @recipe.status = :draft
+      notice_message = "下書きを保存しました"
+      redirect_path = dashboard_recipes_path
+    elsif params[:unpublished].present?
+      @recipe.status = :unpublished
+      notice_message = "非公開にしました.。"
+      redirect_path = dashboard_recipes_path
+    else
+      @recipe.status = :published
+      notice_message = "投稿を更新しました。"
+      redirect_path = recipe_path(@recipe)
+    end
+
+    if @recipe.save
+      redirect_to redirect_path, notice: notice_message
+    else
+      render :edit
+    end
   end
   
   private
 
   def recipe_params
     params.require(:recipe).permit(
-      :dish_name, :explanation, :difficulty, :cooking_time, :image, :genre_id,
+      :dish_name, :explanation, :difficulty, :cooking_time, :status, :image, :genre_id,
       recipe_details_attributes: [:id, :ingredient, :quantity],
       recipe_steps_attributes: [:id, :cooking_process, :image]
       )
