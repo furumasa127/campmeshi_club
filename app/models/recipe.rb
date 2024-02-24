@@ -9,9 +9,6 @@ class Recipe < ApplicationRecord
   has_many :likes, dependent: :destroy
   has_many :comments, dependent: :destroy
   
-
-  
-  
   enum status: { published: 0, draft: 1, unpublished: 2 }
 
   def self.search_for(content, method)
@@ -32,10 +29,15 @@ class Recipe < ApplicationRecord
   
   scope :latest, -> {order(created_at: :desc)}
   
-    validates :image, presence: true, on: :publish
-    validates :dish_name, presence: true, on: :publish
-    validates :explanation, presence: true, on: :publish
-    validates :difficulty, presence: true, on: :publish
-    validates :cooking_time, presence: true, on: :publish
-    validates :genre_id, presence: true, on: :publish
+  with_options if: :published? do
+    validates :image, presence: true
+    validates :dish_name, presence: true
+    validates :explanation, presence: true
+    validates :difficulty, presence: true
+    validates :cooking_time, presence: true
+    validates :genre_id, presence: true
+  end
 end
+
+
+

@@ -5,6 +5,7 @@
     </div>
     <% @recipes.each do |recipe| %>
       <h4>投稿日</h4>
+      <%= recipe.status %>
       <%= recipe.created_at.strftime('%Y/%m/%d') %>
       <i class="fa-regular fa-clock"></i>
       <%= recipe.cooking_time %>分
@@ -29,10 +30,10 @@
       <%= link_to recipe.customer.name, customer_path(recipe.customer.id) %>
       <%= link_to recipe.dish_name, recipe_path(recipe.id) %>
       <%= recipe.explanation %>
-      <% if recipe.image %>
+      <% if recipe.image.present? %>
         <%= image_tag recipe.image, size: "200x200" %>
       <% end %>
-      <%= link_to "編集する", draft_edit_path(recipe) %>
+      <%= link_to "編集する", edit_recipe_path(recipe),data: {"turbolinks"=>false} %>
     <% end %>
     <%= paginate(@recipes) %>
   </div>

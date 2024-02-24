@@ -1,4 +1,4 @@
-<script src="https://kit.fontawesome.com/9c11671e7c.js" crossorigin="anonymous"></script>
+
 <h4>投稿日</h4>
 <%= @recipe.created_at.strftime('%Y/%m/%d') %>
 <h4>調理時間</h4>
@@ -68,5 +68,6 @@
   <%= f.submit "コメント送信" %>
 <% end %>
 <% if @recipe.customer == current_customer %>
+  <%= link_to "編集する", edit_recipe_path(@recipe),data: {"turbolinks"=>false} %>
   <%= link_to "投稿を削除する", recipe_path(@recipe), method: :delete, data: { confirm: '本当に削除しますか？' }, class: "btn btn-danger" %>
 <% end %>

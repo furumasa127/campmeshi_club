@@ -1,5 +1,5 @@
-<h3>New Recipe</h3>
-<%= form_with model: @recipe,url: recipes_path, method: :post do |f| %>
+<h3>Edit Recipe</h3>
+<%= form_with model: @recipe do |f| %>
   <h4>料理名</h4>
   <%= f.text_field :dish_name %>
 
@@ -30,7 +30,7 @@
     </script>
   <% else %>
     <div class="form-group">
-      <%= render "static_rate", recipe: recipe %>
+      <%= render "static_rate", recipe: @recipe %>
     </div>
   <% end %>
   <h4>料理ジャンル</h4>

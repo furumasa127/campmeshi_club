@@ -16,7 +16,7 @@ class Public::RecipesController < ApplicationController
       @recipe.status = :published
     end
     if params[:draft]
-     
+
       if @recipe.save
         redirect_to draft_path(@recipe.customer_id), notice: '下書きが保存されました。'
       else
@@ -27,9 +27,10 @@ class Public::RecipesController < ApplicationController
       if @recipe.save(context: :publish)
         redirect_to recipe_path(@recipe.id), notice: '投稿しました'
       else
+        flash.now[:alert] = "投稿できませんでした。お手数ですが、入力内容をご確認のうえ再度お試しください"
         render :new
       end
-      
+
     end
   end
 
@@ -65,11 +66,11 @@ class Public::RecipesController < ApplicationController
     if params[:draft].present?
       @recipe.status = :draft
       notice_message = "下書きを保存しました"
-      redirect_path = dashboard_recipes_path
+      redirect_path = draft_path(@recipe.customer_id)
     elsif params[:unpublished].present?
       @recipe.status = :unpublished
       notice_message = "非公開にしました.。"
-      redirect_path = dashboard_recipes_path
+      redirect_path = draft_path(@recipe.customer_id)
     else
       @recipe.status = :published
       notice_message = "投稿を更新しました。"
@@ -79,10 +80,11 @@ class Public::RecipesController < ApplicationController
     if @recipe.save
       redirect_to redirect_path, notice: notice_message
     else
+      flash.now[:alert] = "投稿できませんでした。お手数ですが、入力内容をご確認のうえ再度お試しください"
       render :edit
     end
   end
-  
+
   private
 
   def recipe_params

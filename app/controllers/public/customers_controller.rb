@@ -32,7 +32,7 @@ class Public::CustomersController < ApplicationController
   end
   
   def draft
-    @recipes = current_customer.recipes.draft.page(params[:page]).reverse_order
+    @recipes = current_customer.recipes.where(status: %i[draft unpublished]).page(params[:page]).reverse_order
     @genres = Genre.all
   end
 
