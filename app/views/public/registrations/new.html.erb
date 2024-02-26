@@ -1,33 +1,51 @@
-<h2>新規登録</h2>
-
-<%= form_with model: @customer, url: customer_registration_path do |f| %>
-  <%= render "public/shared/error_messages", resource: resource %>
-  
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name, autofocus: true %>
-
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autocomplete: "name" %>
+<div class="container">
+  <h2 class="d-flex justify-content-center pt-5 pb-3">新規登録</h2>
+  <%= form_with model: @customer, url: customer_registration_path do |f| %>
+    <%= render "public/shared/error_messages", resource: resource %>
+    <div class="row">
+      <div class="col-2"></div>
+      <div class="field col-3 text-left mt-4">
+        <label>ユーザ名</label>
+      </div>
+      <div class="form-label col-5 mt-3 pl-5 ">
+        <%= f.text_field :name, autofocus: true, class: "form-control", style: "width:80%", rows: "3" %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-2"></div>
+      <div class="field col-3 text-left mt-4">
+        <label>メールアドレス</label>
+      </div>
+      <div class="form-label col-5 mt-3 pl-5">
+        <%= f.email_field :email, autocomplete: "name", class: "form-control", style: "width:80%", rows: "3" %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-2"></div>
+      <div class="field col-3 text-left mt-4">
+        <label>パスワード</label>
+        <% if @minimum_password_length %>
+        <em>(<%= @minimum_password_length %> 文字以上 )</em>
+        <% end %>
+      </div>
+      <div class="form-label col-5 mt-3 pl-5">
+        <%= f.password_field :password, autocomplete: "new-password", class: "form-control", style: "width:80%", rows: "3" %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-2"></div>
+      <div class="field col-3 text-left mt-4">
+        <label>パスワード( 確認用 )</label>
+      </div>
+      <div class="form-label col-5 mt-3 pl-5">
+        <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control", style: "width:80%", rows: "3" %>
+      </div>
+    </div>
+    <div class="actions d-flex justify-content-center pt-5 pb-3">
+      <%= f.submit "新規登録", class: "btn btn-primary" %>
+    </div>
+  <% end %>
+  <div class="d-flex justify-content-center pt-3">
+    <%= render "public/shared/links" %>
   </div>
-
-  <div class="field">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Sign up" %>
-  </div>
-<% end %>
-
-<%= render "public/shared/links" %>
+</div>
