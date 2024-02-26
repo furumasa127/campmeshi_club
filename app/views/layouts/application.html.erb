@@ -6,70 +6,72 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
-  <body
-    <header>
-    <% if customer_signed_in? %>
-      <li>
-        <%= link_to "マイページ", current_customer %>
-      </li>
-      <li>
-        <%= link_to "投稿一覧", recipes_path %>
-      </li>
-      <li>
-        <%= link_to "LOGO", root_path %>
-      </li>
-      <li>
-        <%= link_to "新規投稿", new_recipe_path,data: {"turbolinks"=>false} %>
-      </li>
-      <li>
-        <%= link_to "ログアウト", destroy_customer_session_path, method: :delete %>
-      </li>
-    <% elsif admin_signed_in? %>
-      <li>
-        <%= link_to "会員一覧", admin_customers_path %>
-      </li>
-      <li>
-        <%= link_to "投稿一覧", admin_recipes_path %>
-      </li>
-      <li>
-        <%= link_to "LOGO", admin_recipes_path %>
-      </li>
-      <li>
-        <%= link_to "ジャンル一覧", admin_genres_path %>
-      </li>
-      <li>
-        <%= link_to "ログアウト", destroy_admin_session_path, method: :delete %>
-      </li>
-    <% else %>
-      <li>
-        <%= link_to 'ゲストログイン', customers_guest_sign_in_path, class: "nav-link", method: :post %>
-      </li>
-      <li>
-        <%= link_to "投稿一覧", recipes_path %>
-      </li>
-      <li>
-        <%= link_to "LOGO", root_path %>
-      </li>
-      <li>
-        <%= link_to "ログイン", new_customer_session_path %>
-      </li>
-      <li>
-        <%= link_to "新規登録", new_customer_registration_path ,data: {"turbolinks"=>false}%>
-      </li>
-    <% end %>
-  </header>
-  <main>
-    <script src="https://kit.fontawesome.com/9c11671e7c.js" crossorigin="anonymous"></script>
-    <% flash.each do |message_type, message| %>
-      <div class="flash-message <%= message_type %>"><%= message %></div>
-    <% end %>
-    <div class="d-flex justify-content-center mb-2">
-      <%= render "/public/searches/form" %>
-    </div>
-  </main>
+  <body>
+    <header class="shadow-sm">
+      <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+          <div class="">
+            <%= link_to root_path do %>
+              <%= image_tag 'logo.jpg', size: '70x70' %>
+            <% end %>
+          </div>
+          <ul class="navbar-nav">
+            <% if customer_signed_in? %>
+              <li class="nav-item mr-5">
+                <%= link_to "マイページ", current_customer,class: 'nav-link' %>
+              </li>
+              <li class="nav-item mr-5">
+                <%= link_to "投稿一覧", recipes_path,class: 'nav-link' %>
+              </li>
+              <li class="nav-item mr-5">
+                <%= link_to "新規投稿", new_recipe_path,class: 'nav-link',data: {"turbolinks"=>false} %>
+              </li>
+              <li class="nav-item mr-5">
+                <%= link_to "ログアウト", destroy_customer_session_path,class: 'nav-link', method: :delete %>
+              </li>
+            <% elsif admin_signed_in? %>
+              <li class="nav-item mr-5">
+                <%= link_to "会員一覧", admin_customers_path,class: 'nav-link' %>
+              </li>
+              <li class="nav-item mr-5">
+                <%= link_to "投稿一覧", admin_recipes_path,class: 'nav-link' %>
+              </li>
+              <li class="nav-item mr-5">
+                <%= link_to "ジャンル一覧", admin_genres_path,class: 'nav-link' %>
+              </li>
+              <li class="nav-item mr-5">
+                <%= link_to "ログアウト", destroy_admin_session_path,class: 'nav-link', method: :delete %>
+              </li>
+            <% else %>
+              <li class="nav-item mr-5">
+                <%= link_to 'ゲストログイン', customers_guest_sign_in_path, class: "nav-link", method: :post %>
+              </li>
+              <li class="nav-item mr-5">
+                <%= link_to "投稿一覧", recipes_path,class: 'nav-link' %>
+              </li>
+              <li class="nav-item mr-5">
+                <%= link_to "ログイン", new_customer_session_path,class: 'nav-link' %>
+              </li>
+              <li class="nav-item mr-5">
+                <%= link_to "新規登録", new_customer_registration_path,class: 'nav-link',data: {"turbolinks"=>false}%>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      <div class="">
+        <%= render "/public/searches/form" %>
+      </div>
+      </nav>
+    </header>
+    <main>
+      <script src="https://kit.fontawesome.com/9c11671e7c.js" crossorigin="anonymous"></script>
+      <% flash.each do |message_type, message| %>
+        <div class="flash-message <%= message_type %>"><%= message %></div>
+      <% end %>
+    </main>
     <%= yield %>
   </body>
 </html>

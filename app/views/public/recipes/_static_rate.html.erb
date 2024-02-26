@@ -10,7 +10,7 @@ $(document).on('turbolinks:load', function() {
     starOff: "<%= asset_path('star-off.png') %>",
     score: "<%= recipe.difficulty %>",
     score: <%= @recipe.difficulty %>,
-    scoreName: 'recipe[difficulty]',    
+    scoreName: 'recipe[difficulty]',
   };
   raty(elem, opt);
 });

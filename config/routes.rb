@@ -4,6 +4,11 @@ Rails.application.routes.draw do
     sessions: 'public/sessions'
   }
 
+  devise_scope :customer do
+    post 'customers/guest_sign_in', to: 'public/sessions#guest_sign_in'
+    get '/customers/sign_out' => 'public/sessions#destroy'
+  end
+
   devise_for :admin, skip: [:registrations, :passwords], controllers: {
     sessions: "admin/sessions"
   }
@@ -37,9 +42,7 @@ Rails.application.routes.draw do
     resources :recipes, only: [:index, :destroy]
   end
 
-  devise_scope :customer do
-    post 'customers/guest_sign_in', to: 'public/sessions#guest_sign_in'
-  end
+
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

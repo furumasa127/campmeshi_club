@@ -23,7 +23,7 @@
   </script>
   ❤️<%= recipe.likes.count %>いいね
   <%= link_to recipe.customer.name, customer_path(recipe.customer.id) %>
-  <%= link_to recipe.dish_name, recipe_path(recipe.id) %>
+  <%= link_to recipe.dish_name, recipe_path(recipe.id), class: "btn btn-success mr-5" %>
   <%= recipe.explanation %>
   <% if recipe.image %>
     <%= image_tag recipe.image, size: "200x200" %>

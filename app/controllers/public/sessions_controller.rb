@@ -29,6 +29,10 @@ class Public::SessionsController < Devise::SessionsController
     recipes_path
   end
 
+  def after_sign_out_path_for(resource)
+    new_customer_session_path
+  end
+
   def guest_sign_in
     customer = Customer.guest
     sign_in customer
