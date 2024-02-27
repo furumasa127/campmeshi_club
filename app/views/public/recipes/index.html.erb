@@ -1,39 +1,78 @@
-<h3>みんなのレシピ</h3>
-<% @recipes.each do |recipe| %>
-  <h4>投稿日</h4>
-  <%= recipe.created_at.strftime('%Y/%m/%d') %>
-  <i class="fa-regular fa-clock"></i>
-  <%= recipe.cooking_time %>分
-  <h4>難易度</h4>
-  <div id="difficulty_<%= recipe.id %>"></div>
-  <script>
-    $(document).on('turbolinks:load', function() {
-      let elem = document.querySelector('#difficulty_<%= recipe.id %>');
-      if (elem == null) return;
-
-      elem.innerHTML = "";
-      let opt = {
-        starOn: "<%= asset_path('star-on.png') %>",
-        starOff: "<%= asset_path('star-off.png') %>",
-        score: "<%= recipe.difficulty %>",
-        readOnly: true,
-      };
-      raty(elem, opt);
-    });
-  </script>
-  ❤️<%= recipe.likes.count %>いいね
-  <%= link_to recipe.customer.name, customer_path(recipe.customer.id) %>
-  <%= link_to recipe.dish_name, recipe_path(recipe.id), class: "btn btn-success mr-5" %>
-  <%= recipe.explanation %>
-  <% if recipe.image %>
-    <%= image_tag recipe.image, size: "200x200" %>
-  <% end %>
-<% end %>
-<%= paginate(@recipes) %>
-<%= form_with url: genre_search_path, method: :get do |f| %>
-    <% @genres.each do |genre| %>
-      <tr>
-        <td><%= link_to genre.name, genre_search_path(genre_id: genre.id), method: :get %></td>
-      </tr>
-    <% end %>
-<% end %>
+<div class="container-fluid">
+  <h3 class="d-flex justify-content-center pt-5">みんなのレシピ</h3>
+  <div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-9">
+      <% @recipes.each do |recipe| %>
+        <div class="row border mt-5">
+          <div class="col-md-9">
+            <div class="row pt-2">
+              <div class="col-md-3 pl-2 pr-0">
+                <p>投稿日   <%= recipe.created_at.strftime('%Y/%m/%d') %></p>
+              </div>
+              <div class="col-md-2 p-0">
+                <i class="fa-regular fa-clock"></i>
+                <%= recipe.cooking_time %>分
+              </div>
+              <div class="col-md-4 p-0 d-flex">
+                <p>難易度</p>
+                <div id="difficulty_<%= recipe.id %>"></div>
+                <script>
+                  $(document).on('turbolinks:load', function() {
+                    let elem = document.querySelector('#difficulty_<%= recipe.id %>');
+                    if (elem == null) return;
+          
+                    elem.innerHTML = "";
+                    let opt = {
+                      starOn: "<%= asset_path('star-on.png') %>",
+                      starOff: "<%= asset_path('star-off.png') %>",
+                      score: "<%= recipe.difficulty %>",
+                      readOnly: true,
+                    };
+                    raty(elem, opt);
+                  });
+                </script>
+              </div>
+              <div class="col-md-2 ml-auto p-0 text-right">
+                ❤️<%= recipe.likes.count %>いいね
+              </div>
+            </div>
+            <div class="row">
+              <%= link_to recipe.customer.name, customer_path(recipe.customer.id), class: "ml-4" %>
+            </div>
+            <div class="row pt-2">
+              <div class="col-1"></div>
+              <%= link_to recipe.dish_name, recipe_path(recipe.id), class: "h4" %>
+            </div>
+            <div class="row pt-3">
+              <div class="col-1"></div>
+              <div class="col-11 border"><%= recipe.explanation %></div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <% if recipe.image %>
+              <%= image_tag recipe.image, size: "200x200" %>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+    <div class="col-md-2 mt-5">
+      <table class="table table-bordered table-hover">
+        <tr class="table-active">
+          <th class="pl-4">ジャンル検索</th>
+        </tr>
+        <%= form_with url: genre_search_path, method: :get do |f| %>
+            <% @genres.each do |genre| %>
+              <tr>
+                <td class="pl-4"><%= link_to genre.name, genre_search_path(genre_id: genre.id), method: :get %></td>
+              </tr>
+            <% end %>
+        <% end %>
+      </table>
+    </div>
+  </div>
+  <div class="d-flex justify-content-center pt-5">
+    <%= paginate(@recipes) %>
+  </div>
+</div>

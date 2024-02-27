@@ -1,34 +1,31 @@
 <div class="container-fluid">
   <h1 class="d-flex justify-content-center pt-5">今日のイチオシレシピ</h1>
-  <div class="d-flex">
-    <div class="row">
-      <% @recipes.each do |recipe| %>
-        <div class="top-recipe justify-content-between flex-column">
-          <div>
-            <%= link_to recipe_path(recipe.id) do %>
-              <%= image_tag recipe.image, size: "200x200" %>
-            <% end %>
-          </div>
-          <div>
-            <%= link_to recipe.dish_name, recipe_path(recipe.id) %>
-          </div>
-        </div>
-      <% end %>
-    </div>
-    <div class="container-fluid col-2">
-      <table class="table ">
-          <tr>
-            <th>ジャンル検索</th>
-          </tr>
-          <%= form_with url: genre_search_path, method: :get do |f| %>
-              <% @genres.each do |genre| %>
-                <tr>
-                  <td><%= link_to genre.name, genre_search_path(genre_id: genre.id), method: :get %></td>
-                </tr>
-              <% end %>
+  <div class="row pt-5">
+    <div class="col-1"></div>
+    <% @recipes.each do |recipe| %>
+      <div class="col-3 justify-content-between">
+        <div>
+          <%= link_to recipe_path(recipe.id) do %>
+            <%= image_tag recipe.image, size: "220x220" %>
           <% end %>
-      </table>
-    </div>
+        </div>
+        <div>
+          <%= link_to recipe.dish_name, recipe_path(recipe.id) %>
+        </div>
+      </div>
+    <% end %>
+    <table class="table table-bordered table-hover col-2">
+      <tr class="table-active">
+        <th class="pl-4">ジャンル検索</th>
+      </tr>
+      <%= form_with url: genre_search_path, method: :get do |f| %>
+          <% @genres.each do |genre| %>
+            <tr>
+              <td class="pl-4"><%= link_to genre.name, genre_search_path(genre_id: genre.id), method: :get %></td>
+            </tr>
+          <% end %>
+      <% end %>
+    </table>
   </div>
-  <%= link_to "すべての商品を見る＞", recipes_path %>
+  <%= link_to "すべての商品を見る＞", recipes_path, class: "d-flex justify-content-center pt-5 mt-5" %>
 </div>

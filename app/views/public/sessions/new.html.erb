@@ -2,18 +2,18 @@
   <h2 class="d-flex justify-content-center pt-5 pb-3">ログイン</h2>
   <%= form_with model: @customer, url: customer_session_path do |f| %>
     <div class="row">
-      <div class="col-4"></div>
-      <div class="field col-1 text-left mt-4">
-        <%= f.label :email %>
+      <div class="col-3"></div>
+      <div class="field col-2 text-left mt-4">
+        <label>メールアドレス</label>
       </div>
       <div class="form-label col-5 mt-3 pl-5 ">
         <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", style: "width:80%", rows: "3" %>
       </div>
     </div>
     <div class="row">
-      <div class="col-4"></div>
-      <div class="field col-1 text-left mt-4">
-        <%= f.label :password %>
+      <div class="col-3"></div>
+      <div class="field col-2 text-left mt-4">
+        <label>パスワード</label>
       </div>
       <div class="form-label col-5 mt-3 pl-5">
         <%= f.password_field :password, autocomplete: "current-password", class: "form-control", style: "width:80%", rows: "3"  %>
