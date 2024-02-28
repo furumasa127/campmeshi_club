@@ -1,17 +1,17 @@
-<div class="cooking_process-field form-group">
+<div class="cooking_process-field form-group pt-4">
   <%= f.hidden_field :_destroy %>
-  <div class="form-group">
-    <%= f.label :cooking_process, raw("作り方" + content_tag(:span, "（必須）", class: "required-label")) %>
-    <div class="input-group">
-      <%= f.text_area :cooking_process, class: "form-control", rows: "2" %>
-      <div class="field">
-        <%= f.file_field :image%>
-      </div>
-      <div class="input-group-append">
-        <button type="button" class="btn btn-danger remove-cooking_process">
-          <i class="fas fa-trash-alt"></i>
-        </button>
-      </div>
+  <div class="row">
+    <div class="col-3"></div>
+    <div class="col-md-4">
+      <%= f.text_area :cooking_process, placeholder: "作り方", class: "form-control", rows: "2" %>
+    </div>
+    <div class="field">
+      <%= f.file_field :image%>
+    </div>
+    <div class="col-auto">
+      <button type="button" class="btn btn-danger remove-cooking_process">
+        <i class="fas fa-trash-alt"></i>
+      </button>
     </div>
   </div>
 </div>
@@ -20,7 +20,7 @@
   $(document).on('turbolinks:load', function() {
     $(document).on('click', '.remove-cooking_process', function(){
       $(this).closest('.cooking_process-field').find("input[name$='[_destroy]']").val('true');
-      $(this).closest('.cooking_process-field').hide(); 
+      $(this).closest('.cooking_process-field').hide();
     });
   });
 </script>
