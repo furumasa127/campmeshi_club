@@ -1,98 +1,115 @@
-<h3>Edit Recipe</h3>
-<%= form_with model: @recipe do |f| %>
-  <h4>料理名</h4>
-  <%= f.text_field :dish_name %>
-
-  <h4>料理写真</h4>
-  <%= f.file_field :image, accept: "image/*" %>
-
-  <h4>調理時間</h4>
-  <%= f.text_field :cooking_time %>分
-
-  <% if @recipe.id.nil? %>
-    <div class="form-group" id="difficulty">
-      <h4>調理難易度</h4>
-      <%= f.hidden_field :difficulty, id: :difficulty, class: 'form-control' %>
-      <div id="post_raty"></div>
+<div class="container">
+  <h3 class="d-flex justify-content-center pt-5">New Recipe</h3>
+  <%= form_with model: @recipe do |f| %>
+    <div class="row pt-4">
+      <div class="col-md-3"></div>
+      <h4 class="col-md-2">料理名</h4>
+      <%= f.text_field :dish_name, class: "col-3" %>
     </div>
-    <script>
-      $(document).on('turbolinks:load', function() {
-        let elem = document.querySelector('#post_raty');
-        if (elem == null) return;
-        elem.innerHTML = ""
-        let opt = {
-          starOn: "<%= asset_path('star-on.png') %>",
-          starOff: "<%= asset_path('star-off.png') %>",
-          scoreName: 'recipe[difficulty]',
-        };
-        raty(elem, opt);
-      });
-    </script>
-  <% else %>
-    <div class="form-group">
-      <%= render "static_rate", recipe: @recipe %>
+    <div class="row pt-4">
+      <div class="col-md-3"></div>
+      <h4 class="col-md-2">料理写真</h4>
+      <%= f.file_field :image, accept: "image/*", class: "col-4 pl-0" %>
     </div>
-  <% end %>
-  <h4>料理ジャンル</h4>
-  <%= f.collection_select :genre_id, Genre.all, :id, :name, include_blank: "選択して下さい" %>
-  <h4>料理説明</h4>
-  <%= f.text_area :explanation %>
-  <div id="details-field-template" style="display: none;">
-    <%= f.fields_for :ingredient, RecipeDetail.new, child_index: "new_recipe_details" do |recipe_detail_field| %>
+    <div class="row pt-4">
+      <div class="col-md-3"></div>
+      <h4 class="col-md-2">調理時間</h4>
+      <%= f.text_field :cooking_time, class: "col-1" %>分
+    </div>
+    <% if @recipe.id.nil? %>
+      <div class="row pt-4" id="difficulty">
+         <div class="col-md-3"></div>
+        <h4 class="col-md-2">調理難易度</h4>
+        <%= f.hidden_field :difficulty, id: :difficulty, class: 'form-control col-2' %>
+        <div id="post_raty"></div>
+      </div>
+      <script>
+        $(document).on('turbolinks:load', function() {
+          let elem = document.querySelector('#post_raty');
+          if (elem == null) return;
+          elem.innerHTML = ""
+          let opt = {
+            starOn: "<%= asset_path('star-on.png') %>",
+            starOff: "<%= asset_path('star-off.png') %>",
+            scoreName: 'recipe[difficulty]',
+          };
+          raty(elem, opt);
+        });
+      </script>
+    <% else %>
+      <div class="row pt-4" id="difficulty">
+        <div class="col-md-3"></div>
+        <h4 class="col-md-2">調理難易度</h4>
+        <%= render "static_rate", recipe: @recipe %>
+      </div>
+    <% end %>
+    <div class="row pt-4">
+      <div class="col-md-3"></div>
+      <h4 class="col-md-2">料理ジャンル</h4>
+      <%= f.collection_select :genre_id, Genre.all, :id, :name, { include_blank: "選択して下さい" }, { style: "width: 20%;" } %>
+    </div>
+    <div class="row pt-4">
+      <div class="col-md-3"></div>
+      <h4 class="col-md-2">料理説明</h4>
+      <%= f.text_area :explanation, { style: "width: 50%;" } %>
+    </div>
+    <div id="details-field-template" style="display: none;">
+      <%= f.fields_for :ingredient, RecipeDetail.new, child_index: "new_recipe_details" do |recipe_detail_field| %>
+        <%= render 'details_field', f: recipe_detail_field %>
+      <% end %>
+    </div>
+    <%= f.fields_for :recipe_details do |recipe_detail_field| %>
       <%= render 'details_field', f: recipe_detail_field %>
     <% end %>
-  </div>
-  <%= f.fields_for :recipe_details do |recipe_detail_field| %>
-    <%= render 'details_field', f: recipe_detail_field %>
-  <% end %>
-  <div id="details"></div>
-  <div>
-    <button type="button" id="add-detail" class="btn mb-4"  style="background-color: #FFD5EC;">材料を追加</button>
-  </div>
-  <div id="steps-field-template" style="display: none;">
-    <%= f.fields_for :recipe_steps, RecipeStep.new, child_index: "new_recipe_step" do |recipe_step_field| %>
+    <div id="details"></div>
+    <div class="d-flex justify-content-center">
+      <button type="button" id="add-detail" class="btn mb-4"  style="background-color: #FFD5EC;">材料を追加</button>
+    </div>
+    <div id="steps-field-template" style="display: none;">
+      <%= f.fields_for :recipe_steps, RecipeStep.new, child_index: "new_recipe_step" do |recipe_step_field| %>
+        <%= render 'steps_field', f: recipe_step_field %>
+      <% end %>
+    </div>
+    <%= f.fields_for :recipe_steps do |recipe_step_field| %>
       <%= render 'steps_field', f: recipe_step_field %>
     <% end %>
-  </div>
-  <%= f.fields_for :recipe_steps do |recipe_step_field| %>
-    <%= render 'steps_field', f: recipe_step_field %>
-  <% end %>
-  <div id="recipe_steps"></div>
-  <div>
-    <button type="button" id="add-recipe_step" class="btn"  style="background-color: #FFD5EC;">作り方を追加</button>
-  </div>
-  <script data-turbolinks-eval="false">
-    $(document).on('turbolinks:load', function() {
-      const add_detail_script = () => {
-          var content = document.getElementById("details-field-template").innerHTML;
-          var uniqueId = new Date().getTime();
-          content = content.replace(/new_ingredient/g, uniqueId);
-          document.getElementById("details").insertAdjacentHTML('beforeend', content);
-      }
-      document.getElementById("add-detail").addEventListener("click", add_detail_script);
-      document.querySelector('#add-recipe_step').addEventListener('click', () => {
-        let content = document.getElementById('steps-field-template').innerHTML;
-        let uniqueId = new Date().getTime();
-        content = content.replace(/new_recipe_step/g, uniqueId);
-        document.getElementById('recipe_steps').insertAdjacentHTML('beforeend', content);
-      });
-   });
-  </script>
-  <div class="btn-group" role="group" id="buttonGroup">
-    <% if @recipe.persisted? %>
-      <% if @recipe.draft? %>
-        <%= f.submit '下書き保存', id: 'draftButton', name: 'draft', class: "draft-btn" %>
-        <%= f.submit '公開する', id: 'publishButton', name: 'published', class: "submit-btn" %>
-      <% elsif @recipe.unpublished? %>
-        <%= f.submit '非公開にする', id: 'unpublishButton', name: 'unpublished', class: "unpublish-btn" %>
-        <%= f.submit '公開する', id: 'publishButton', name: 'published', class: "submit-btn" %>
+    <div id="recipe_steps"></div>
+    <div class="d-flex justify-content-center">
+      <button type="button" id="add-recipe_step" class="btn"  style="background-color: #FFD5EC;">作り方を追加</button>
+    </div>
+    <script data-turbolinks-eval="false">
+      $(document).on('turbolinks:load', function() {
+        const add_detail_script = () => {
+            var content = document.getElementById("details-field-template").innerHTML;
+            var uniqueId = new Date().getTime();
+            content = content.replace(/new_ingredient/g, uniqueId);
+            document.getElementById("details").insertAdjacentHTML('beforeend', content);
+        }
+        document.getElementById("add-detail").addEventListener("click", add_detail_script);
+        document.querySelector('#add-recipe_step').addEventListener('click', () => {
+          let content = document.getElementById('steps-field-template').innerHTML;
+          let uniqueId = new Date().getTime();
+          content = content.replace(/new_recipe_step/g, uniqueId);
+          document.getElementById('recipe_steps').insertAdjacentHTML('beforeend', content);
+        });
+     });
+    </script>
+    <div class="btn-group d-flex justify-content-center pt-4" role="group" id="buttonGroup">
+      <% if @recipe.persisted? %>
+        <% if @recipe.draft? %>
+          <%= f.submit '下書き保存', id: 'draftButton', name: 'draft', class: "draft-btn m-auto" %>
+          <%= f.submit '公開する', id: 'publishButton', name: 'published', class: "submit-btnm-auto" %>
+        <% elsif @recipe.unpublished? %>
+          <%= f.submit '非公開にする', id: 'unpublishButton', name: 'unpublished', class: "unpublish-btn m-auto" %>
+          <%= f.submit '公開する', id: 'publishButton', name: 'published', class: "submit-btn m-auto" %>
+        <% else %>
+          <%= f.submit '非公開にする', id: 'unpublishButton', name: 'unpublished', class: "unpublish-btn m-auto" %>
+          <%= f.submit '公開する', id: 'publishButton', name: 'published', class: "submit-btn m-auto" %>
+        <% end %>
       <% else %>
-        <%= f.submit '非公開にする', id: 'unpublishButton', name: 'unpublished', class: "unpublish-btn" %>
-        <%= f.submit '公開する', id: 'publishButton', name: 'published', class: "submit-btn" %>
+          <%= f.submit '下書き保存', id: 'draftButton', name: 'draft', class: "draft-btn mr-4" %>
+          <%= f.submit '公開する', id: 'postButton', name: 'post', class: "submit-btn" %>
       <% end %>
-    <% else %>
-        <%= f.submit '下書き保存', id: 'draftButton', name: 'draft', class: "draft-btn" %>
-        <%= f.submit '公開する', id: 'postButton', name: 'post', class: "submit-btn" %>
-    <% end %>
-  </div>
-<% end %>
+    </div>
+  <% end %>
+</div>

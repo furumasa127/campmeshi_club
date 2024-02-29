@@ -86,7 +86,7 @@
             </div>
             <div class="row pt-3">
               <div class="col-1"></div>
-              <div class="col-11 border"><%= recipe.explanation %></div>
+              <div class="col-11 border text-break mb-1"><%= recipe.explanation %></div>
             </div>
           </div>
           <div class="col-md-3">
@@ -111,6 +111,6 @@
     <% if current_customer.id == @customer.id %>
       <%= link_to "いいね履歴へ", likes_customers_path, class: "mr-5 mt-5" %>
       <%= link_to "下書き一覧へ", draft_path, class: "mt-5" %>
-  <% end %>
+    <% end %>
   </div>
 </div>

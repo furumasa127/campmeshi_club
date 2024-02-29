@@ -1,73 +1,116 @@
+<div class="container">
+  <div class="row mt-2">
+    <div class="col-md-6"></div>
+    <p class="mr-1">投稿日</p>
+    <p class="mr-3"><%= @recipe.created_at.strftime('%Y/%m/%d') %></p>
+    <i class="fa-regular fa-clock mt-1"></i>
+    <p class="mr-3"><%= @recipe.cooking_time %>分</p>
+    <p class="mr-1">難易度</p>
+    <div id="difficulty_<%= @recipe.id %>"></div>
+    <script>
+      $(document).on('turbolinks:load', function() {
+        let elem = document.querySelector('#difficulty_<%= @recipe.id %>');
+        if (elem == null) return;
 
-<h4>投稿日</h4>
-<%= @recipe.created_at.strftime('%Y/%m/%d') %>
-<h4>調理時間</h4>
-<i class="fa-regular fa-clock"></i>
-<%= @recipe.cooking_time %>分
-<h4>難易度</h4>
-<div id="difficulty_<%= @recipe.id %>"></div>
-<script>
-  $(document).on('turbolinks:load', function() {
-    let elem = document.querySelector('#difficulty_<%= @recipe.id %>');
-    if (elem == null) return;
-
-    elem.innerHTML = "";
-    let opt = {
-      starOn: "<%= asset_path('star-on.png') %>",
-      starOff: "<%= asset_path('star-off.png') %>",
-      score: "<%= @recipe.difficulty %>",
-      readOnly: true,
-    };
-    raty(elem, opt);
-  });
-</script>
-<% if @recipe.liked_by?(current_customer) %>
-  <p>
-    <%= link_to recipe_like_path(@recipe), method: :delete do %>
-      ♥<%= @recipe.likes.count %> いいね
+        elem.innerHTML = "";
+        let opt = {
+          starOn: "<%= asset_path('star-on.png') %>",
+          starOff: "<%= asset_path('star-off.png') %>",
+          score: "<%= @recipe.difficulty %>",
+          readOnly: true,
+        };
+        raty(elem, opt);
+      });
+    </script>
+    <div class="ml-3">
+      <% if @recipe.liked_by?(current_customer) %>
+        <p>
+          <%= link_to recipe_like_path(@recipe), method: :delete do %>
+            ♥<%= @recipe.likes.count %> いいね
+          <% end %>
+        </p>
+        <% else %>
+        <p>
+          <%= link_to recipe_like_path(@recipe), method: :post do %>
+            ♡<%= @recipe.likes.count %> いいね
+          <% end %>
+        </p>
+      <% end %>
+    </div>
+  </div>
+  <h1 class="d-flex justify-content-center pt-2">
+    <%= @recipe.dish_name %>
+  </h1>
+  <div class="row">
+    <div class="col-md-10"></div>
+    <div class="pr-3">
+      <%= @recipe.customer.name %>
+    </div>
+    <%= render "public/relationships/btn", customer: @recipe.customer, options: { class: "follow-link" } %>
+  </div>
+  <div class="d-flex justify-content-center">
+    <%= image_tag @recipe.image, size: "250x220" %>
+  </div>
+  <div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6 text-break">
+      <%= @recipe.explanation %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-3"></div>
+    <table class="table table-inverse col-md-6">
+      <tr class="table-active">
+        <th class="col-7">材料</th>
+        <th class="col-5">分量</th>
+      </tr>
+      <tr>
+        <% @recipe.recipe_details.each do |detail| %>
+          <td><%= detail.ingredient %></td>
+          <td><%= detail.quantity %></td>
+        <% end %>
+      </tr>
+    </table>
+  </div>
+  <h3 class="d-flex justify-content-center pt-2">作り方</h3>
+    <% @recipe.recipe_steps.each do |step| %>
+      <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-2">
+          <% if step.image.attached? %>
+            <%= image_tag step.image, size: "200x200" %>
+          <% end %>
+        </div>
+        <p class="col-md-5 text-break "><%= step.cooking_process %></p>
+      </div>
     <% end %>
-  </p>
-  <% else %>
-  <p>
-    <%= link_to recipe_like_path(@recipe), method: :post do %>
-      ♡<%= @recipe.likes.count %> いいね
+    <% if @recipe.customer == current_customer %>
+      <div class="row">
+        <div class="col-md-4"></div>
+        <%= link_to "投稿を編集する", edit_recipe_path(@recipe),data: {"turbolinks"=>false}, class: "btn btn-success mr-5 ml-5" %>
+        <%= link_to "投稿を削除する", recipe_path(@recipe), method: :delete, data: { confirm: '本当に削除しますか？' }, class: "btn btn-danger" %>
+      </div>
     <% end %>
-  </p>
-<% end %>
-<%= @recipe.customer.name %>
-<%= render "public/relationships/btn", customer: @recipe.customer, options: { class: "follow-link" } %>
-<%= @recipe.dish_name %>
-<%= image_tag @recipe.image, size: "200x200" %>
-<%= @recipe.explanation %>
-
-<h3>材料</h3>
-<% @recipe.recipe_details.each do |detail| %>
-  <p><%= detail.ingredient %></p>
-  <p><%= detail.quantity %></p>
-<% end %>
-
-<h3>作り方</h3>
-<% @recipe.recipe_steps.each do |step| %>
-  <p><%= step.cooking_process %></p>
-  <% if step.image.attached? %>
-    <%= image_tag step.image, size: "200x200" %>
+  <h4 class="d-flex justify-content-center pt-5 pb-3">コメント件数:<%= @recipe.comments.count %></h4>
+  <% @recipe.comments.each do |comment| %>
+    <div class="row">
+      <div class="col-md-3"></div>
+      <div class="col-md-2">
+        <%= comment.customer.name %>
+      </div>
+      <div class="col-md-5 text-break">
+        <%= comment.comment %>
+      </div>
+      <% if comment.customer == current_customer %>
+        <%= link_to "コメント削除", recipe_comment_path(comment.recipe, comment), method: :delete %>
+      <% end %>
+    </div>
   <% end %>
-<% end %>
-
-
-<p>コメント件数:<%= @recipe.comments.count %></p>
-<% @recipe.comments.each do |comment| %>
-  <%= comment.customer.name %>
-  <%= comment.comment %>
-  <% if comment.customer == current_customer %>
-  <%= link_to "コメント削除", recipe_comment_path(comment.recipe, comment), method: :delete %>
-<% end %>
-<% end %>
-<%= form_with model: [@recipe, @comment] do |f| %>
-  <%= f.text_area :comment, rows: '5', placeholder: "コメントを入力してください" %>
-  <%= f.submit "コメント送信" %>
-<% end %>
-<% if @recipe.customer == current_customer %>
-  <%= link_to "編集する", edit_recipe_path(@recipe),data: {"turbolinks"=>false} %>
-  <%= link_to "投稿を削除する", recipe_path(@recipe), method: :delete, data: { confirm: '本当に削除しますか？' }, class: "btn btn-danger" %>
-<% end %>
+  <%= form_with model: [@recipe, @comment] do |f| %>
+    <div class="row">
+      <div class="col-md-3"></div>
+      <%= f.text_area :comment, rows: '2', placeholder: "コメントを入力してください", class: "col-md-5 mt-5" %>
+      <%= f.submit "コメント送信", class: "btn btn-primary mt-5" %>
+    </div>
+  <% end %>
+</div>
