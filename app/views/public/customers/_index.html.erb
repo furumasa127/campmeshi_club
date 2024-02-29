@@ -1,8 +1,8 @@
 <% customers.each do |customer| %>
       <tr>
         <td><%= customer.name %></td>
-        <td>フォロー数: <%= customer.followings.count %></td>
-        <td>フォロワー数: <%= customer.followers.count %></td>
+        <td><%= customer.followings.count %></td>
+        <td><%= customer.followers.count %></td>
         <td><%= render "public/relationships/btn", customer: customer, options: { class: "follow-link" } %></td>
         <td><%= link_to "Show", customer %></td>
       </tr>

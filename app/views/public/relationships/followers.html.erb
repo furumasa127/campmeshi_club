@@ -1,6 +1,17 @@
-<h2>Follower Customers</h2>
-<% if @customers.exists? %>
-  <%= render "public/customers/index", customers: @customers %>
-<% else %>
-  <p>ユーザーはいません</p>
-<% end %>
+<div class="container">
+  <h2 class="d-flex justify-content-center pt-5 pb-3">Follower Customers</h2>
+  <table class="table table-bordered table-hover">
+    <tr class="table-active">
+      <th>ユーザ名</th>
+      <th class="col-2">フォロー数</th>
+      <th class="col-2">フォロワー数</th>
+      <th></th>
+      <th></th>
+    </tr>
+    <% if @customers.exists? %>
+      <%= render "public/customers/index", customers: @customers %>
+    <% else %>
+      <p class="d-flex justify-content-center pt-5 pb-3">ユーザーはいません</p>
+    <% end %>
+  </table>
+</div>
