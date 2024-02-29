@@ -64,19 +64,19 @@
         <th class="col-7">材料</th>
         <th class="col-5">分量</th>
       </tr>
-      <tr>
-        <% @recipe.recipe_details.each do |detail| %>
+      <% @recipe.recipe_details.each do |detail| %>
+        <tr>
           <td><%= detail.ingredient %></td>
           <td><%= detail.quantity %></td>
-        <% end %>
-      </tr>
+        </tr>
+      <% end %>
     </table>
   </div>
   <h3 class="d-flex justify-content-center pt-2">作り方</h3>
     <% @recipe.recipe_steps.each do |step| %>
       <div class="row">
         <div class="col-md-2"></div>
-        <div class="col-md-2">
+        <div class="col-md-2 mr-4">
           <% if step.image.attached? %>
             <%= image_tag step.image, size: "200x200" %>
           <% end %>
