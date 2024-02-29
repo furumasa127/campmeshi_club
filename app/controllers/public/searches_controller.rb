@@ -8,6 +8,7 @@ class Public::SearchesController < ApplicationController
     @content = params[:content]
     @method = params[:method]
     @records = Recipe.published.search_for(@content, @method)
+    @genres = Genre.all
   end
       
 end
