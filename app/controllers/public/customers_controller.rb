@@ -28,7 +28,7 @@ class Public::CustomersController < ApplicationController
   def likes
     likes = Like.where(customer_id: current_customer.id).pluck(:recipe_id)
     @like_list = Recipe.find(likes)
-    @like_list = Kaminari.paginate_array(@like_list).page(params[:page]).per(9)
+    @like_list = Kaminari.paginate_array(@like_list).page(params[:page]).per(12)
   end
   
   def draft
