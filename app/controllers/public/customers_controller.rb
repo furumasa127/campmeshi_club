@@ -2,7 +2,7 @@ class Public::CustomersController < ApplicationController
   before_action :authenticate_customer!
   def show
     @customer = Customer.find(params[:id])
-    @recipes = @customer.recipes.published.page(params[:page]).per(10)
+    @recipes = @customer.recipes.published.order(created_at: :desc).page(params[:page]).per(10)
   end
 
   def edit
