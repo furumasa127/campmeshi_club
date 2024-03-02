@@ -23,39 +23,39 @@
         <%= image_tag 'no_image', size: "100x100" %>
       <% end %>
     </div>
-    <h1 class="align-self-center"><%= @customer.name %>のページ</h1>
+    <h2 class="text-title align-self-center"><%= @customer.name %></h2>
   </div>
   <div class="row">
     <div class="col-md-8"></div>
     <div class="d-flex col-md-2">
-      <h5>フォロー</h5>
-      <%= link_to @customer.followings.count, customer_followings_path(@customer), class: "pl-3"  %>
+      <h5 class="text">フォロー</h5>
+      <%= link_to @customer.followings.count, customer_followings_path(@customer), class: "text pl-3"  %>
     </div>
     <div class="d-flex col-md-2">
-      <h5>フォロワー</h5>
-      <%= link_to @customer.followers.count, customer_followers_path(@customer), class: "pl-3" %>
+      <h5 class="text">フォロワー</h5>
+      <%= link_to @customer.followers.count, customer_followers_path(@customer), class: "text pl-3" %>
     </div>
   </div>
   <div class="row">
     <div class="col-md-1"></div>
-    <h3 class="col-md-2">投稿レシピ</h3>
+    <h3 class="text-title col-md-2">投稿レシピ</h3>
   </div>
   <div class="row">
     <div class="col-md-1"></div>
     <div class="col-md-9">
       <% @recipes.each do |recipe| %>
-        <div class="row border mt-5">
+        <div class="recipe row border mt-5">
           <div class="col-md-9">
             <div class="row pt-2">
               <div class="col-md-3 pl-2 pr-0">
-                <p>投稿日   <%= recipe.created_at.strftime('%Y/%m/%d') %></p>
+                <p class="text">投稿日   <%= recipe.created_at.strftime('%Y/%m/%d') %></p>
               </div>
-              <div class="col-md-2 p-0">
+              <div class="text col-md-2 p-0">
                 <i class="fa-regular fa-clock"></i>
                 <%= recipe.cooking_time %>分
               </div>
               <div class="col-md-4 p-0 d-flex">
-                <p>難易度</p>
+                <p class="text">難易度</p>
                 <div id="difficulty_<%= recipe.id %>"></div>
                 <script>
                   $(document).on('turbolinks:load', function() {
@@ -73,25 +73,25 @@
                   });
                 </script>
               </div>
-              <div class="col-md-2 ml-auto p-0 text-right">
+              <div class="text col-md-2 ml-auto p-0 text-right">
                 ❤️<%= recipe.likes.count %>いいね
               </div>
             </div>
             <div class="row">
-              <%= link_to recipe.customer.name, customer_path(recipe.customer.id), class: "ml-4" %>
+              <%= link_to recipe.customer.name, customer_path(recipe.customer.id), class: "text-title ml-4" %>
             </div>
             <div class="row pt-2">
               <div class="col-1"></div>
-              <%= link_to recipe.dish_name, recipe_path(recipe.id), class: "h4" %>
+              <%= link_to recipe.dish_name, recipe_path(recipe.id), class: "text-title h4" %>
             </div>
             <div class="row pt-3">
               <div class="col-1"></div>
-              <div class="col-11 border text-break mb-1"><%= recipe.explanation %></div>
+              <div class="text col-11 border text-break mb-1"><%= recipe.explanation %></div>
             </div>
           </div>
           <div class="col-md-3">
             <% if recipe.image %>
-              <%= image_tag recipe.image, size: "200x200" %>
+              <%= image_tag recipe.image, size: "200x200", class: "" %>
             <% end %>
           </div>
         </div>
@@ -107,8 +107,8 @@
   <div class="row">
     <div class="col-4"></div>
     <% if current_customer.id == @customer.id %>
-      <%= link_to "いいね履歴へ", likes_customers_path, class: "mr-5 mt-5" %>
-      <%= link_to "下書き一覧へ", draft_path, class: "mt-5" %>
+      <%= link_to "いいね履歴へ＞", likes_customers_path, class: "text mr-5 mt-5" %>
+      <%= link_to "下書き一覧へ＞", draft_path, class: "text mt-5" %>
     <% end %>
   </div>
 </div>

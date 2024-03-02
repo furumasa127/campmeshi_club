@@ -1,25 +1,25 @@
 <div class="cover-index">
   <div class="container">
     <div class="row justify-content-center">
-      <h1 class="font-weight-normal mt-3">下書き一覧</h1>
+      <h1 class="text-title mt-3">下書き一覧</h1>
     </div>
-    <table class="table table-bordered table-hover">
+    <table class="table table-draft table-bordered table-hover">
       <tr class="table-active">
-        <th>投稿日</th>
-        <th>料理名</th>
-        <th>料理写真</th>
+        <th class="text">投稿日</th>
+        <th class="text">料理名</th>
+        <th class="text">料理写真</th>
         <th></th>
       </tr>
       <% @recipes.each do |recipe| %>
         <tr>
-          <td><%= recipe.created_at.strftime('%Y/%m/%d') %></td>
-          <td><%= link_to recipe.dish_name, recipe_path(recipe.id) %></td>
+          <td class="text"><%= recipe.created_at.strftime('%Y/%m/%d') %></td>
+          <td><%= link_to recipe.dish_name, recipe_path(recipe.id), class: "text" %></td>
           <td>
             <% if recipe.image.present? %>
               <%= image_tag recipe.image, size: "100x100" %>
             <% end %>
           </td>
-          <td><%= link_to "編集する", edit_recipe_path(recipe),data: {"turbolinks"=>false} %></td>
+          <td><%= link_to "編集する", edit_recipe_path(recipe),data: {"turbolinks"=>false}, class: "text" %></td>
         </tr>
       <% end %>
     </table>

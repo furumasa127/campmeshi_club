@@ -1,25 +1,25 @@
 <div class="container">
-  <h3 class="d-flex justify-content-center pt-5">Edit Recipe</h3>
+  <h2 class="text-title d-flex justify-content-center pt-5">Edit Recipe</h2>
   <%= form_with model: @recipe do |f| %>
     <div class="row pt-4">
       <div class="col-md-3"></div>
-      <h4 class="col-md-2">料理名</h4>
+      <h4 class="text-title col-md-2">料理名</h4>
       <%= f.text_field :dish_name, class: "col-3" %>
     </div>
     <div class="row pt-4">
       <div class="col-md-3"></div>
-      <h4 class="col-md-2">料理写真</h4>
-      <%= f.file_field :image, accept: "image/*", class: "col-4 pl-0" %>
+      <h4 class="text-title col-md-2">料理写真</h4>
+      <%= f.file_field :image, accept: "image/*", class: "text col-4 pl-0" %>
     </div>
     <div class="row pt-4">
       <div class="col-md-3"></div>
-      <h4 class="col-md-2">調理時間</h4>
-      <%= f.text_field :cooking_time, class: "col-1" %>分
+      <h4 class="text-title col-md-2">調理時間</h4>
+      <%= f.text_field :cooking_time, class: "col-1" %><span class="text">分</span>
     </div>
     <% if @recipe.id.nil? %>
       <div class="row pt-4" id="difficulty">
          <div class="col-md-3"></div>
-        <h4 class="col-md-2">調理難易度</h4>
+        <h4 class="text-title col-md-2">調理難易度</h4>
         <%= f.hidden_field :difficulty, id: :difficulty, class: 'form-control col-2' %>
         <div id="post_raty"></div>
       </div>
@@ -39,18 +39,18 @@
     <% else %>
       <div class="row pt-4" id="difficulty">
         <div class="col-md-3"></div>
-        <h4 class="col-md-2">調理難易度</h4>
+        <h4 class="text-title col-md-2">調理難易度</h4>
         <%= render "static_rate", recipe: @recipe %>
       </div>
     <% end %>
     <div class="row pt-4">
       <div class="col-md-3"></div>
-      <h4 class="col-md-2">料理ジャンル</h4>
+      <h4 class="text-title col-md-2">料理ジャンル</h4>
       <%= f.collection_select :genre_id, Genre.all, :id, :name, { include_blank: "選択して下さい" }, { style: "width: 20%;" } %>
     </div>
     <div class="row pt-4">
       <div class="col-md-3"></div>
-      <h4 class="col-md-2">料理説明</h4>
+      <h4 class="text-title col-md-2">料理説明</h4>
       <%= f.text_area :explanation, { style: "width: 50%;" } %>
     </div>
     <div id="details-field-template" style="display: none;">

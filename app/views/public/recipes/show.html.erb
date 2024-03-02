@@ -1,11 +1,11 @@
 <div class="container">
-  <div class="row mt-2">
+  <div class="row pt-2">
     <div class="col-md-6"></div>
-    <p class="mr-1">投稿日</p>
-    <p class="mr-3"><%= @recipe.created_at.strftime('%Y/%m/%d') %></p>
-    <i class="fa-regular fa-clock mt-1"></i>
-    <p class="mr-3"><%= @recipe.cooking_time %>分</p>
-    <p class="mr-1">難易度</p>
+    <p class="text mr-1">投稿日</p>
+    <p class="text mr-3"><%= @recipe.created_at.strftime('%Y/%m/%d') %></p>
+    <i class="text fa-regular fa-clock mt-1"></i>
+    <p class="text mr-3"><%= @recipe.cooking_time %>分</p>
+    <p class="text mr-1">難易度</p>
     <div id="difficulty_<%= @recipe.id %>"></div>
     <script>
       $(document).on('turbolinks:load', function() {
@@ -25,35 +25,35 @@
     <div class="ml-3">
       <% if @recipe.liked_by?(current_customer) %>
         <p>
-          <%= link_to recipe_like_path(@recipe), method: :delete do %>
+          <%= link_to recipe_like_path(@recipe),class: "text", method: :delete do %>
             ♥<%= @recipe.likes.count %> いいね
           <% end %>
         </p>
         <% else %>
         <p>
-          <%= link_to recipe_like_path(@recipe), method: :post do %>
+          <%= link_to recipe_like_path(@recipe),class: "text", method: :post do %>
             ♡<%= @recipe.likes.count %> いいね
           <% end %>
         </p>
       <% end %>
     </div>
   </div>
-  <h1 class="d-flex justify-content-center pt-2">
+  <h1 class="text-title d-flex justify-content-center pt-2">
     <%= @recipe.dish_name %>
   </h1>
   <div class="row">
     <div class="col-md-10"></div>
-    <div class="pr-3">
+    <div class="text-title pr-3">
       <%= @recipe.customer.name %>
     </div>
-    <%= render "public/relationships/btn", customer: @recipe.customer, options: { class: "follow-link" } %>
+    <%= render "public/relationships/btn", customer: @recipe.customer, options: { class: "follow-link text" } %>
   </div>
   <div class="d-flex justify-content-center">
     <%= image_tag @recipe.image, size: "250x220" %>
   </div>
   <div class="row">
     <div class="col-md-3"></div>
-    <div class="col-md-6 text-break">
+    <div class="text col-md-6 text-break">
       <%= @recipe.explanation %>
     </div>
   </div>
@@ -61,18 +61,18 @@
     <div class="col-md-3"></div>
     <table class="table table-inverse col-md-6">
       <tr class="table-active">
-        <th class="col-7">材料</th>
-        <th class="col-5">分量</th>
+        <th class="text col-7">材料</th>
+        <th class="text col-5">分量</th>
       </tr>
       <% @recipe.recipe_details.each do |detail| %>
         <tr>
-          <td><%= detail.ingredient %></td>
-          <td><%= detail.quantity %></td>
+          <td class="text"><%= detail.ingredient %></td>
+          <td class="text"><%= detail.quantity %></td>
         </tr>
       <% end %>
     </table>
   </div>
-  <h3 class="d-flex justify-content-center pt-2">作り方</h3>
+  <h3 class="text-title d-flex justify-content-center pt-2">作り方</h3>
     <% @recipe.recipe_steps.each do |step| %>
       <div class="row">
         <div class="col-md-2"></div>
@@ -81,7 +81,7 @@
             <%= image_tag step.image, size: "200x200" %>
           <% end %>
         </div>
-        <p class="col-md-5 text-break "><%= step.cooking_process %></p>
+        <p class="text col-md-5 text-break "><%= step.cooking_process %></p>
       </div>
     <% end %>
     <% if @recipe.customer == current_customer %>
@@ -91,18 +91,18 @@
         <%= link_to "投稿を削除する", recipe_path(@recipe), method: :delete, data: { confirm: '本当に削除しますか？' }, class: "btn btn-danger" %>
       </div>
     <% end %>
-  <h4 class="d-flex justify-content-center pt-5 pb-3">コメント件数:<%= @recipe.comments.count %></h4>
+  <h4 class="text-title d-flex justify-content-center pt-5 pb-3">コメント件数:<%= @recipe.comments.count %></h4>
   <% @recipe.comments.each do |comment| %>
     <div class="row">
       <div class="col-md-3"></div>
-      <div class="col-md-2">
+      <div class="text col-md-2">
         <%= comment.customer.name %>
       </div>
-      <div class="col-md-5 text-break">
+      <div class="text col-md-5 text-break">
         <%= comment.comment %>
       </div>
       <% if comment.customer == current_customer %>
-        <%= link_to "コメント削除", recipe_comment_path(comment.recipe, comment), method: :delete %>
+        <%= link_to "コメント削除", recipe_comment_path(comment.recipe, comment),class: "btn btn-danger", method: :delete %>
       <% end %>
     </div>
   <% end %>

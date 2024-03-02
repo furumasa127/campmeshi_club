@@ -1,10 +1,11 @@
-<div class="container">
-  <h2 class="d-flex justify-content-center pt-5 pb-3">新規登録</h2>
+<div class="fullheight container">
+  <p class="m-0"><%= render "public/shared/error_messages", resource: resource %></p>
+  <h2 class="text-title d-flex justify-content-center pt-5 pb-3">新規登録</h2>
   <%= form_with model: @customer, url: customer_registration_path do |f| %>
-    <%= render "public/shared/error_messages", resource: resource %>
+    
     <div class="row">
       <div class="col-2"></div>
-      <div class="field col-3 text-left mt-4">
+      <div class="text col-3 text-left mt-4">
         <label>ユーザ名</label>
       </div>
       <div class="form-label col-5 mt-3 pl-5 ">
@@ -13,7 +14,7 @@
     </div>
     <div class="row">
       <div class="col-2"></div>
-      <div class="field col-3 text-left mt-4">
+      <div class="text col-3 text-left mt-4">
         <label>メールアドレス</label>
       </div>
       <div class="form-label col-5 mt-3 pl-5">
@@ -22,7 +23,7 @@
     </div>
     <div class="row">
       <div class="col-2"></div>
-      <div class="field col-3 text-left mt-4">
+      <div class="text col-3 text-left mt-4">
         <label>パスワード</label>
         <% if @minimum_password_length %>
         <em>(<%= @minimum_password_length %> 文字以上 )</em>
@@ -34,7 +35,7 @@
     </div>
     <div class="row">
       <div class="col-2"></div>
-      <div class="field col-3 text-left mt-4">
+      <div class="text col-3 text-left mt-4">
         <label>パスワード( 確認用 )</label>
       </div>
       <div class="form-label col-5 mt-3 pl-5">

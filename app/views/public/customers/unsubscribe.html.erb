@@ -1,9 +1,11 @@
-<div class="container">
-  <div>
-    <h4 class="text-center mb-4 mt-5">本当に退会しますか？</h4>
-    <div class="text-center">
-      <%= link_to "退会しない", current_customer, :class => "btn btn-primary ms-3" %>
-      <%= link_to "退会する", customers_withdraw_path, method: :patch, :class => "btn btn-danger ms-3 ml-2 pl-4 pr-4" %>
+<div class="fullheight container">
+  <div class="fullheight d-flex align-items-center justify-content-center">
+    <div>
+    <h4 class="pb-5">本当に退会しますか？</h4>
+      <div class="">
+        <%= link_to "退会しない", current_customer, :class => "btn btn-primary ms-3" %>
+        <%= link_to "退会する", customers_withdraw_path, method: :patch, :class => "btn btn-danger ms-3 ml-2 pl-4 pr-4" %>
+      </div>
     </div>
   </div>
 </div>

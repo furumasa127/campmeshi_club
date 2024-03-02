@@ -1,13 +1,9 @@
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-1"></div>
-    <h2 class="mt-4 mb-4">ジャンル編集</h2>
-  </div>
+<div class="fullheight container">
+  <h2 class="text-title d-flex justify-content-center pt-4 pb-4">ジャンル編集</h2>
   <%= form_with model: [:admin,@genre] do |f| %>
-    <div class="row">
-      <div class="ml-5 mr-5">
-        <strong>ジャンル名</strong>
-      </div>
+    <div class="row mt-5">
+      <div class="col-md-3"></div>
+      <div class="text ml-5 mr-5">ジャンル名</div>
       <%= f.text_field :name, :class => "mr-5" %>
       <%= f.submit "変更を保存", :class => "btn btn-success" %>
     </div>

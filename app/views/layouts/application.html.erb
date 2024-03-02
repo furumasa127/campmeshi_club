@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html class="html">
   <head>
     <title>CampmeshiClub</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -9,7 +9,7 @@
     <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
-  <body>
+  <body class="body">
     <header class="shadow-sm">
       <nav class="navbar navbar-expand-lg">
         <div class="container-fluid">
@@ -17,6 +17,7 @@
             <%= link_to root_path do %>
               <%= image_tag 'logo.png', size: '70x70' %>
             <% end %>
+            <span class="text-title h4">キャンプ飯倶楽部</span>
           </div>
           <ul class="navbar-nav">
             <% if customer_signed_in? %>
@@ -61,17 +62,18 @@
             <% end %>
           </ul>
         </div>
-      <div class="">
-        <%= render "/public/searches/form" %>
-      </div>
+        <div class="">
+          <%= render "/public/searches/form" %>
+        </div>
       </nav>
     </header>
-    <main>
+    <main class="main">
       <script src="https://kit.fontawesome.com/9c11671e7c.js" crossorigin="anonymous"></script>
       <% flash.each do |message_type, message| %>
         <div class="flash-message <%= message_type %>"><%= message %></div>
       <% end %>
+      <%= yield %>
     </main>
-    <%= yield %>
+    
   </body>
 </html>

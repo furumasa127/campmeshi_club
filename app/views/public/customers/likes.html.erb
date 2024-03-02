@@ -1,9 +1,9 @@
 <div class="container">
-  <h2 class="d-flex justify-content-center pt-5">favorite recipes</h2>
+  <h2 class="text-title d-flex justify-content-center pt-5">favorite recipes</h2>
   <div class="row">
     <% if @like_list.present? %>
       <% @like_list.each do |recipe| %>
-        <div class="col-3">
+        <div class="mb-3 col-3">
           <%= link_to recipe_path(recipe) do %>
             <%= image_tag recipe.image, size: "200x200" %>
           <% end %>
