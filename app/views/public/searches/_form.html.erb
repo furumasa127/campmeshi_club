@@ -1,5 +1,9 @@
-<%= form_with url: search_path, method: :get, local: true do |f| %>
-  <%= f.text_field :content, :placeholder => "例: シチュー", class: "form-control" %>
-  <%= f.select :method, options_for_select({"完全一致" => "perfect", "前方一致" => "forward", "後方一致" => "backward", "部分一致" => "partial"}) %>
-  <%= f.submit "検索" %>
-<% end %>
+<div>
+  <%= form_with url: search_path, method: :get, local: true do |f| %>
+    <%= f.text_field :content, :placeholder => "例: シチュー", class: "form-control" %>
+    <div class="text-right">
+      <%= f.select :method, options_for_select({"完全一致" => "perfect", "前方一致" => "forward", "後方一致" => "backward", "部分一致" => "partial"}) %>
+      <%= f.submit "Search", class: "btn btn-success" %>
+    </div>
+  <% end %>
+</div>

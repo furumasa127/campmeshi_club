@@ -54,7 +54,7 @@
       <%= f.text_area :explanation, { style: "width: 50%;" } %>
     </div>
     <div id="details-field-template" style="display: none;">
-      <%= f.fields_for :ingredient, RecipeDetail.new, child_index: "new_recipe_details" do |recipe_detail_field| %>
+      <%= f.fields_for :recipe_details, RecipeDetail.new, child_index: "new_recipe_details" do |recipe_detail_field| %>
         <%= render 'details_field', f: recipe_detail_field %>
       <% end %>
     </div>
@@ -82,10 +82,11 @@
         const add_detail_script = () => {
             var content = document.getElementById("details-field-template").innerHTML;
             var uniqueId = new Date().getTime();
-            content = content.replace(/new_ingredient/g, uniqueId);
+            content = content.replace(/new_recipe_details/g, uniqueId);
             document.getElementById("details").insertAdjacentHTML('beforeend', content);
         }
         document.getElementById("add-detail").addEventListener("click", add_detail_script);
+  
         document.querySelector('#add-recipe_step').addEventListener('click', () => {
           let content = document.getElementById('steps-field-template').innerHTML;
           let uniqueId = new Date().getTime();

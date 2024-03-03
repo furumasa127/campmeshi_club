@@ -20,10 +20,21 @@
     background-color: #ddb687;
 }
 
-.nav-link {
+.nav-item {
     color: #fff;
 }
 
+.ml-auto {
+  margin-left: auto;
+}
+
+.navbar-collapse {
+  justify-content: flex-end;
+}
+.footer {
+    background-color: #ddb687;
+    height: 20vh;
+}
 .main {
     background-color: #E6D5BA;
 }
@@ -49,6 +60,6 @@
     height: 80vh;
 }
 
-table {
-  border-color: #fc0606;
+@media screen and (max-width:768px) {
+
 }

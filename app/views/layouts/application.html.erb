@@ -11,59 +11,66 @@
   </head>
   <body class="body">
     <header class="shadow-sm">
-      <nav class="navbar navbar-expand-lg">
+      <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container-fluid">
-          <div class="">
+          <div>
             <%= link_to root_path do %>
               <%= image_tag 'logo.png', size: '70x70' %>
             <% end %>
             <span class="text-title h4">キャンプ飯倶楽部</span>
           </div>
-          <ul class="navbar-nav">
-            <% if customer_signed_in? %>
-              <li class="nav-item mr-5">
-                <%= link_to "マイページ", current_customer,class: 'nav-link' %>
-              </li>
-              <li class="nav-item mr-5">
-                <%= link_to "投稿一覧", recipes_path,class: 'nav-link' %>
-              </li>
-              <li class="nav-item mr-5">
-                <%= link_to "新規投稿", new_recipe_path,class: 'nav-link',data: {"turbolinks"=>false} %>
-              </li>
-              <li class="nav-item mr-5">
-                <%= link_to "ログアウト", destroy_customer_session_path,class: 'nav-link', method: :delete %>
-              </li>
-            <% elsif admin_signed_in? %>
-              <li class="nav-item mr-5">
-                <%= link_to "会員一覧", admin_customers_path,class: 'nav-link' %>
-              </li>
-              <li class="nav-item mr-5">
-                <%= link_to "投稿一覧", admin_recipes_path,class: 'nav-link' %>
-              </li>
-              <li class="nav-item mr-5">
-                <%= link_to "ジャンル一覧", admin_genres_path,class: 'nav-link' %>
-              </li>
-              <li class="nav-item mr-5">
-                <%= link_to "ログアウト", destroy_admin_session_path,class: 'nav-link', method: :delete %>
-              </li>
-            <% else %>
-              <li class="nav-item mr-5">
-                <%= link_to 'ゲストログイン', customers_guest_sign_in_path, class: "nav-link", method: :post %>
-              </li>
-              <li class="nav-item mr-5">
-                <%= link_to "投稿一覧", recipes_path,class: 'nav-link' %>
-              </li>
-              <li class="nav-item mr-5">
-                <%= link_to "ログイン", new_customer_session_path,class: 'nav-link' %>
-              </li>
-              <li class="nav-item mr-5">
-                <%= link_to "新規登録", new_customer_registration_path,class: 'nav-link',data: {"turbolinks"=>false}%>
-              </li>
-            <% end %>
-          </ul>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <div class="d-flex">
+              <ul class="navbar-nav ml-auto">
+                <% if customer_signed_in? %>
+                  <li class="nav-item mr-lg-5">
+                    <%= link_to "マイページ", current_customer,class: 'nav-link p-0 text-center' %>
+                  </li>
+                  <li class="nav-item mr-lg-5">
+                    <%= link_to "投稿一覧", recipes_path,class: 'nav-link p-0 text-center' %>
+                  </li>
+                  <li class="nav-item mr-lg-5">
+                    <%= link_to "新規投稿", new_recipe_path,class: 'nav-link p-0 text-center',data: {"turbolinks"=>false} %>
+                  </li>
+                  <li class="nav-item mr-lg-5">
+                    <%= link_to "ログアウト", destroy_customer_session_path,class: 'nav-link p-0 text-center', method: :delete %>
+                  </li>
+                <% elsif admin_signed_in? %>
+                  <li class="nav-item mr-lg-5">
+                    <%= link_to "会員一覧", admin_customers_path,class: 'nav-link p-0 text-center' %>
+                  </li>
+                  <li class="nav-item mr-lg-5">
+                    <%= link_to "投稿一覧", admin_recipes_path,class: 'nav-link p-0 text-center' %>
+                  </li>
+                  <li class="nav-item mr-lg-5">
+                    <%= link_to "ジャンル一覧", admin_genres_path,class: 'nav-link p-0 text-center' %>
+                  </li>
+                  <li class="nav-item mr-lg-5">
+                    <%= link_to "ログアウト", destroy_admin_session_path,class: 'nav-link p-0 text-center', method: :delete %>
+                  </li>
+                <% else %>
+                  <li class="nav-item mr-lg-5">
+                    <%= link_to 'ゲストログイン', customers_guest_sign_in_path, class: "nav-link p-0 text-center", method: :post %>
+                  </li>
+                  <li class="nav-item mr-lg-5">
+                    <%= link_to "投稿一覧", recipes_path,class: 'nav-link p-0 text-center' %>
+                  </li>
+                  <li class="nav-item mr-lg-5">
+                    <%= link_to "ログイン", new_customer_session_path,class: 'nav-link p-0 text-center' %>
+                  </li>
+                  <li class="nav-item mr-lg-5">
+                    <%= link_to "新規登録", new_customer_registration_path,class: 'nav-link p-0 text-center',data: {"turbolinks"=>false}%>
+                  </li>
+                <% end %>
+              </ul>
+            </div>
+          </div>
         </div>
-        <div class="">
-          <%= render "/public/searches/form" %>
+        <div class="ml-auto">
+        　　<%= render "/public/searches/form" %>
         </div>
       </nav>
     </header>
@@ -74,6 +81,9 @@
       <% end %>
       <%= yield %>
     </main>
-    
+    <footer>
+      <div class="footer"></div>
+    </footer>
+
   </body>
 </html>

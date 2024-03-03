@@ -90,8 +90,8 @@ class Public::RecipesController < ApplicationController
   def recipe_params
     params.require(:recipe).permit(
       :dish_name, :explanation, :difficulty, :cooking_time, :status, :image, :genre_id,
-      recipe_details_attributes: [:id, :ingredient, :quantity],
-      recipe_steps_attributes: [:id, :cooking_process, :image]
+      recipe_details_attributes: [:id, :ingredient, :quantity, :_destroy],
+      recipe_steps_attributes: [:id, :cooking_process, :image, :_destroy]
       )
   end
 end

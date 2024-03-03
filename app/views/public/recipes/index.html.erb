@@ -2,7 +2,7 @@
   <h2 class="text-title d-flex justify-content-center pt-5">みんなのレシピ</h2>
   <div class="row">
     <div class="col-md-1"></div>
-    <div class="col-md-9">
+    <div class="col-md-8">
       <% @recipes.each do |recipe| %>
         <div class="recipe row border mt-5">
           <div class="col-md-9">
@@ -41,7 +41,7 @@
               <%= link_to recipe.customer.name, customer_path(recipe.customer.id), class: "text-title ml-4" %>
             </div>
             <div class="row pt-2">
-              <div class="col-1"></div>
+              <div class="col-md-1"></div>
               <%= link_to recipe.dish_name, recipe_path(recipe.id), class: "text-title h4" %>
             </div>
             <div class="row pt-3">
@@ -51,12 +51,13 @@
           </div>
           <div class="col-md-3 text-right p-0">
             <% if recipe.image %>
-              <%= image_tag recipe.image, size: "200x200" %>
+              <%= image_tag recipe.image, size: "170x170" %>
             <% end %>
           </div>
         </div>
       <% end %>
     </div>
+    <div class="col-md-1"></div>
     <div class="col-md-2 mt-5">
       <table class="genre-search table table-bordered table-hover">
         <tr class="table-active">
