@@ -1,14 +1,14 @@
 <div class="cooking_process-field form-group pt-4">
   <%= f.hidden_field :_destroy %>
   <div class="row">
-    <div class="col-3"></div>
-    <div class="col-md-4">
+    <div class="col-lg-3"></div>
+    <div class="form-group-step col-lg-4">
       <%= f.text_area :cooking_process, placeholder: "作り方", class: "form-control", rows: "2" %>
     </div>
-    <div class="text">
+    <div class="form-group-file col-lg-4 col-7 text pl-0">
       <%= f.file_field :image%>
     </div>
-    <div class="col-auto">
+    <div class="form-group-step col-auto">
       <button type="button" class="btn btn-danger remove-cooking_process">
         <i class="fas fa-trash-alt"></i>
       </button>
