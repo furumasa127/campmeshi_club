@@ -2,26 +2,26 @@
   <h2 class="text-title d-flex justify-content-center pt-5">Edit Recipe</h2>
   <%= form_with model: @recipe do |f| %>
     <div class="row pt-4">
-      <div class="col-md-3"></div>
-      <h4 class="text-title col-md-2">料理名</h4>
-      <%= f.text_field :dish_name, class: "col-3" %>
+      <div class="col-lg-3"></div>
+      <h4 class="text-title col-lg-3 col-12">料理名</h4>
+      <%= f.text_field :dish_name, class: "col-lg-4 col-8 ml-5 form-control" %>
     </div>
     <div class="row pt-4">
-      <div class="col-md-3"></div>
-      <h4 class="text-title col-md-2">料理写真</h4>
-      <%= f.file_field :image, accept: "image/*", class: "text col-4 pl-0" %>
+      <div class="col-lg-3"></div>
+      <h4 class="text-title col-lg-3">料理写真</h4>
+      <%= f.file_field :image, accept: "image/*", class: "text col-lg-4 ml-5 pl-0" %>
     </div>
     <div class="row pt-4">
-      <div class="col-md-3"></div>
-      <h4 class="text-title col-md-2">調理時間</h4>
-      <%= f.text_field :cooking_time, class: "col-1" %><span class="text">分</span>
+      <div class="col-lg-3"></div>
+      <h4 class="text-title col-lg-3">調理時間</h4>
+      <%= f.text_field :cooking_time, class: "form-control col-lg-1 col-3 ml-5" %><span class="text">分</span>
     </div>
     <% if @recipe.id.nil? %>
       <div class="row pt-4" id="difficulty">
-         <div class="col-md-3"></div>
-        <h4 class="text-title col-md-2">調理難易度</h4>
+         <div class="col-lg-3"></div>
+        <h4 class="text-title col-lg-3">調理難易度</h4>
         <%= f.hidden_field :difficulty, id: :difficulty, class: 'form-control col-2' %>
-        <div id="post_raty"></div>
+        <div id="post_raty", class="ml-5"></div>
       </div>
       <script>
         $(document).on('turbolinks:load', function() {
@@ -37,21 +37,21 @@
         });
       </script>
     <% else %>
-      <div class="row pt-4" id="difficulty">
-        <div class="col-md-3"></div>
-        <h4 class="text-title col-md-2">調理難易度</h4>
-        <%= render "static_rate", recipe: @recipe %>
-      </div>
+    <div class="row pt-4" id="difficulty">
+      <div class="col-lg-3"></div>
+      <h4 class="text-title col-lg-3">調理難易度</h4>
+      <%= render "static_rate", recipe: @recipe %>
+    </div>
     <% end %>
     <div class="row pt-4">
-      <div class="col-md-3"></div>
-      <h4 class="text-title col-md-2">料理ジャンル</h4>
-      <%= f.collection_select :genre_id, Genre.all, :id, :name, { include_blank: "選択して下さい" }, { style: "width: 20%;" } %>
+      <div class="col-lg-3"></div>
+      <h4 class="text-title col-lg-3">料理ジャンル</h4>
+      <%= f.collection_select :genre_id, Genre.all, :id, :name, { include_blank: "選択して下さい" }, { style: "width: 20%;", class: "ml-5 col-lg-3 col-5" } %>
     </div>
     <div class="row pt-4">
-      <div class="col-md-3"></div>
-      <h4 class="text-title col-md-2">料理説明</h4>
-      <%= f.text_area :explanation, { style: "width: 50%;" } %>
+      <div class="col-lg-3"></div>
+      <h4 class="text-title col-lg-3">料理説明</h4>
+      <%= f.text_area :explanation, { style: "width: 40%;", class: "form-control col-lg-4 col-10 ml-5" } %>
     </div>
     <div id="details-field-template" style="display: none;">
       <%= f.fields_for :recipe_details, RecipeDetail.new, child_index: "new_recipe_details" do |recipe_detail_field| %>
@@ -95,21 +95,21 @@
         });
      });
     </script>
-    <div class="btn-group d-flex justify-content-center pt-2" role="group" id="buttonGroup">
+    <div class="btn-group d-flex justify-content-center pt-4" role="group" id="buttonGroup">
       <% if @recipe.persisted? %>
         <% if @recipe.draft? %>
-          <%= f.submit '下書き保存', id: 'draftButton', name: 'draft', class: "btn btn-success col-2 mr-5" %>
-          <%= f.submit '公開する', id: 'publishButton', name: 'published', class: "btn btn-primary col-2 ml-5" %>
+          <%= f.submit '下書き保存', id: 'draftButton', name: 'draft', class: "btn btn-primary col-lg-2 col-3 mb-5" %>
+          <%= f.submit '公開する', id: 'publishButton', name: 'published', class: "btn btn-success col-lg-2 col-3 ml-2 mb-5" %>
         <% elsif @recipe.unpublished? %>
-          <%= f.submit '非公開にする', id: 'unpublishButton', name: 'unpublished', class: "btn btn-success col-2 mr-5" %>
-          <%= f.submit '公開する', id: 'publishButton', name: 'published', class: "btn btn-primary col-2 ml-5" %>
+          <%= f.submit '非公開にする', id: 'unpublishButton', name: 'unpublished', class: "btn btn-primary col-lg-2 col-3 mb-5" %>
+          <%= f.submit '公開する', id: 'publishButton', name: 'published', class: "btn btn-success col-lg-2 col-3 ml-2 mb-5" %>
         <% else %>
-          <%= f.submit '非公開にする', id: 'unpublishButton', name: 'unpublished', class: "btn btn-success col-2 mr-5" %>
-          <%= f.submit '公開する', id: 'publishButton', name: 'published', class: "btn btn-primary col-2 ml-5" %>
+          <%= f.submit '非公開にする', id: 'unpublishButton', name: 'unpublished', class: "btn btn-primary col-lg-2 col-3 mb-5" %>
+          <%= f.submit '公開する', id: 'publishButton', name: 'published', class: "btn btn-success col-lg-2 col-3 ml-2 mb-5" %>
         <% end %>
       <% else %>
-          <%= f.submit '下書き保存', id: 'draftButton', name: 'draft', class: "dbtn btn-success col-2 mr-5" %>
-          <%= f.submit '公開する', id: 'postButton', name: 'post', class: "btn btn-primary col-2 ml-5" %>
+          <%= f.submit '下書き保存', id: 'draftButton', name: 'draft', class: "btn btn-primary col-lg-2 col-3 mb-5" %>
+          <%= f.submit '公開する', id: 'postButton', name: 'post', class: "btn btn-success col-lg-2 col-3 ml-2 mb-5" %>
       <% end %>
     </div>
   <% end %>
