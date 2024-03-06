@@ -7,19 +7,19 @@
       <tr class="table-active">
         <th class="text">投稿日</th>
         <th class="text">料理名</th>
-        <th class="text">料理写真</th>
+        <th class="text d-none d-sm-block">料理写真</th>
         <th></th>
       </tr>
       <% @recipes.each do |recipe| %>
         <tr>
           <td class="text"><%= recipe.created_at.strftime('%Y/%m/%d') %></td>
           <td><%= link_to recipe.dish_name, recipe_path(recipe.id), class: "text" %></td>
-          <td>
+          <td class="d-none d-sm-block">
             <% if recipe.image.present? %>
               <%= image_tag recipe.image, size: "100x100" %>
             <% end %>
           </td>
-          <td><%= link_to "編集する", edit_recipe_path(recipe),data: {"turbolinks"=>false}, class: "text" %></td>
+          <td><%= link_to "編集", edit_recipe_path(recipe),data: {"turbolinks"=>false}, class: "text" %></td>
         </tr>
       <% end %>
     </table>
