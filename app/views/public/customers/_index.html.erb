@@ -1,9 +1,8 @@
 <% customers.each do |customer| %>
-      <tr>
-        <td class="text"><%= customer.name %></td>
-        <td class="text"><%= customer.followings.count %></td>
-        <td class="text"><%= customer.followers.count %></td>
+      <tr class="bg-light">
+        <td class="text">
+          <%= link_to customer_path(customer.id), class: "text" do %><%= customer.name %><% end %>
+        </td>
         <td><%= render "public/relationships/btn", customer: customer, options: { class: "text follow-link" } %></td>
-        <td><%= link_to "Show", customer, class: "text" %></td>
       </tr>
     <% end %>
