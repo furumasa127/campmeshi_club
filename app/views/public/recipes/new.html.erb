@@ -14,7 +14,7 @@
     <div class="row pt-4">
       <div class="col-lg-3"></div>
       <h4 class="text col-lg-3">調理時間</h4>
-      <%= f.text_field :cooking_time, class: "form-control col-lg-1 col-3 ml-5" %><span class="text">分</span>
+      <%= f.text_field :cooking_time, class: "form-control col-lg-1 col-3 ml-5" %><span class="text d-flex align-items-end">分</span>
     </div>
     <% if @recipe.id.nil? %>
       <div class="row pt-4" id="difficulty">
@@ -95,18 +95,18 @@
     <div class="btn-group d-flex justify-content-center pt-4" role="group" id="buttonGroup">
       <% if @recipe.persisted? %>
         <% if @recipe.draft? %>
-          <%= f.submit '下書き保存', id: 'draftButton', name: 'draft', class: "btn btn-primary col-lg-2 col-3 mb-5" %>
-          <%= f.submit '公開する', id: 'publishButton', name: 'published', class: "btn btn-success col-lg-2 col-3 ml-2 mb-5" %>
+          <%= f.submit '下書き保存', id: 'draftButton', name: 'draft', class: "btn btn-primary col-lg-2 col-sm-3 col-4 mb-5" %>
+          <%= f.submit '公開する', id: 'publishButton', name: 'published', class: "btn btn-success col-lg-2 col-sm-3  col-4 ml-2 mb-5" %>
         <% elsif @recipe.unpublished? %>
-          <%= f.submit '非公開にする', id: 'unpublishButton', name: 'unpublished', class: "btn btn-primary col-lg-2 col-3 mb-5" %>
-          <%= f.submit '公開する', id: 'publishButton', name: 'published', class: "btn btn-success col-lg-2 col-3 ml-2 mb-5" %>
+          <%= f.submit '非公開にする', id: 'unpublishButton', name: 'unpublished', class: "btn btn-primary col-lg-2 col-4 mb-5" %>
+          <%= f.submit '公開する', id: 'publishButton', name: 'published', class: "btn btn-success col-lg-2 col-sm-3  col-4 ml-2 mb-5" %>
         <% else %>
-          <%= f.submit '非公開にする', id: 'unpublishButton', name: 'unpublished', class: "btn btn-primary col-lg-2 col-3 mb-5" %>
-          <%= f.submit '公開する', id: 'publishButton', name: 'published', class: "btn btn-success col-lg-2 col-3 ml-2 mb-5" %>
+          <%= f.submit '非公開にする', id: 'unpublishButton', name: 'unpublished', class: "btn btn-primary col-lg-2 col-sm-3  col-4 mb-5" %>
+          <%= f.submit '公開する', id: 'publishButton', name: 'published', class: "btn btn-success col-lg-2 col-sm-3  col-4 ml-2 mb-5" %>
         <% end %>
       <% else %>
-          <%= f.submit '下書き保存', id: 'draftButton', name: 'draft', class: "btn btn-primary col-lg-2 col-3 mb-5" %>
-          <%= f.submit '公開する', id: 'postButton', name: 'post', class: "btn btn-success col-lg-2 col-3 ml-2 mb-5" %>
+          <%= f.submit '下書き保存', id: 'draftButton', name: 'draft', class: "btn btn-primary col-lg-2 col-sm-3  col-4 mb-5" %>
+          <%= f.submit '公開する', id: 'postButton', name: 'post', class: "btn btn-success col-lg-2 col-sm-3  col-4 ml-2 mb-5" %>
       <% end %>
     </div>
   <% end %>

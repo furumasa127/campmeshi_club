@@ -1,4 +1,4 @@
-<div class="container">
+<div class="fullheight container">
   <h3 class="text-title d-flex justify-content-center pt-5 pb-3">会員情報編集</h3>
   <%= form_with model: @customer do |f| %>
     <div class="row">
@@ -16,7 +16,7 @@
         <label>メールアドレス</label>
       </div>
       <div class="form-label col-lg-5 mt-3 pl-5">
-        <%= f.text_field :email, class: "col-lg-10" %>
+        <%= f.text_field :email, class: "form-control col-lg-10" %>
       </div>
     </div>
     <div class="actions d-flex justify-content-center pt-5 pb-3">
