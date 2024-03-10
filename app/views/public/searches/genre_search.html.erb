@@ -1,8 +1,12 @@
 <div class="container-fluid">
-  <h2 class="text-title d-flex justify-content-center pt-5">Search Results</h2>
+  <h2 class="text-title d-flex justify-content-center pt-5">
+    <div class="heading">
+      Search Results
+    </div>
+  </h2>
   <div class="row">
-    <div class="col-lg-1 col-1"></div>
-    <div class="col-lg-8">
+    <div class="col-lg-2 col-1"></div>
+    <div class="col-lg-7">
       <% @recipes.each do |recipe| %>
         <div class="recipe row border mt-5">
           <div class="col-lg-12">

@@ -8,7 +8,7 @@ class Recipe < ApplicationRecord
   has_one_attached :image
   has_many :likes, dependent: :destroy
   has_many :comments, dependent: :destroy
-  
+
   enum status: { published: 0, draft: 1, unpublished: 2 }
 
   def self.search_for(content, method)
@@ -22,13 +22,13 @@ class Recipe < ApplicationRecord
       Recipe.where('dish_name LIKE ?', '%' + content + '%')
     end
   end
-  
+
   def liked_by?(customer)
     likes.exists?(customer_id: customer.id)
   end
-  
+
   scope :latest, -> {order(created_at: :desc)}
-  
+
   with_options if: :published? do
     validates :image, presence: true
     validates :dish_name, presence: true
@@ -37,6 +37,16 @@ class Recipe < ApplicationRecord
     validates :cooking_time, presence: true
     validates :genre_id, presence: true
   end
+  
+  validates_associated :recipe_details
+  validates :recipe_details, presence: true
+  with_options presence: true do
+    #validates :ingredient, presence: true
+#    validates :quantity, presence: true, numericality: { allow_blank: true}
+  end
+  
+  validates_associated :recipe_steps
+  validates :recipe_steps, presence: true
 end
 
 

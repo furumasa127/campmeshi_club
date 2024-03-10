@@ -1,5 +1,9 @@
 <div class="container">
-  <h2 class="text-title d-flex justify-content-center pt-5">New Recipe</h2>
+  <h2 class="text-title d-flex justify-content-center pt-5">
+    <div class="heading">
+      New Recipe
+    </div>
+  </h2>
   <%= form_with model: @recipe,url: recipes_path, method: :post do |f| %>
     <div class="row pt-4">
       <div class="col-lg-3"></div>

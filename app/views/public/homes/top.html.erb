@@ -1,5 +1,9 @@
 <div class="container-fluid">
-  <h1 class="text-title d-flex justify-content-center pt-5">新着レシピ</h1>
+  <h1 class="text-title d-flex justify-content-center pt-5">
+    <div class="heading">
+      新着レシピ
+    </div>
+  </h1>
   <div class="row pt-5">
     <div class="col-1"></div>
     <% @recipes.each do |recipe| %>
@@ -32,5 +36,7 @@
       <% end %>
     </table>
   </div>
-  <%= link_to "すべての商品を見る＞", recipes_path, class: "text d-flex justify-content-center pt-5 mt-5" %>
+  <div class="row">
+    <%= link_to ">>すべての商品を見る", recipes_path, class: "btn btn-outline-secondary  mx-auto my-5" %>
+  </div>
 </div>
