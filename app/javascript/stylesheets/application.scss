@@ -20,7 +20,11 @@
     background-color: #ddb687;
 }
 
-.nav-item {
+.nav {
+  color: #fff;
+}
+
+.nav-link {
     color: #fff;
 }
 
@@ -85,6 +89,6 @@
       overflow: hidden;
       display: -webkit-box;
       -webkit-box-orient: vertical;
-      -webkit-line-clamp: 2;
+      -webkit-line-clamp: 3;
     }
 }

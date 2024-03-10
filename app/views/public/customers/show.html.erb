@@ -1,21 +1,20 @@
-<div class="container">
+<div class="container-fluid">
   <div class="row pt-2">
-    <div class="col-md-8"></div>
-    <div class="d-flex col-md-4 justify-content-end">
+    <div class="col-md-8 col-5"></div>
+    <div class="d-flex col-lg-4 col-md-4 col-7 justify-content-end">
       <% if current_customer != @customer %>
         <td class=""><%= render "/public/relationships/btn", customer: @customer, options: { class: ""} %></td>
       <% else %>
-        <%= link_to edit_customer_path(@customer), class: "btn btn-outline-secondary btn-block col-2 mr-3" do %>
+        <%= link_to edit_customer_path(@customer), class: "btn btn-outline-secondary btn-block col-lg-2 col-md-5 col-4 mr-3" do %>
           <i class="fas fa-user-cog"></i>
         <% end %>
       <% end %>
       <% if current_customer.id == @customer.id %>
-        <%= link_to "退会する", customers_unsubscribe_path(@customer.id), class: "btn btn-danger col-4" %>
+        <%= link_to "退会する", customers_unsubscribe_path(@customer.id), class: "btn btn-danger col-lg-4 col-md-5 col-6" %>
       <% end %>
     </div>
   </div>
-  <div class="row">
-    <div class="col-md-4"></div>
+  <div class=" d-flex justify-content-center">
     <div class="pr-3">
       <% if @customer.image.attached? %>
         <%= image_tag @customer.image, size: "100x100" %>
@@ -26,37 +25,34 @@
     <h2 class="text-title align-self-center"><%= @customer.name %></h2>
   </div>
   <div class="row">
-    <div class="col-md-8"></div>
-    <div class="d-flex col-md-2">
-      <h5 class="text">フォロー</h5>
+    <div class="col-md-8 col-sm-7"></div>
+    <div class="d-flex col-sm-2">
+      <h5 class="text">Follow</h5>
       <%= link_to @customer.followings.count, customer_followings_path(@customer), class: "text pl-3"  %>
     </div>
-    <div class="d-flex col-md-2">
-      <h5 class="text">フォロワー</h5>
+    <div class="d-flex col-md-2 col-sm-3">
+      <h5 class="text">Follower</h5>
       <%= link_to @customer.followers.count, customer_followers_path(@customer), class: "text pl-3" %>
     </div>
   </div>
   <div class="row">
-    <div class="col-md-1"></div>
-    <h3 class="text-title col-md-2">投稿レシピ</h3>
-  </div>
-  <div class="row">
-    <div class="col-md-1"></div>
-    <div class="col-md-9">
+    <div class="col-lg-1 col-1"></div>
+    <div class="col-lg-10">
       <% @recipes.each do |recipe| %>
         <div class="recipe row border mt-5">
-          <div class="col-md-9">
+          <div class="col-lg-12">
             <div class="row pt-2">
-              <div class="col-md-3 pl-2 pr-0">
-                <p class="text">投稿日   <%= recipe.created_at.strftime('%Y/%m/%d') %></p>
+              <div class="d-flex col-lg-3 col-3 pl-2 pr-0">
+                <p class="text d-none d-sm-block">投稿日  </p>
+                <span class=" d-none d-sm-block"><%= recipe.created_at.strftime('%Y/%m/%d') %></span>
               </div>
-              <div class="text col-md-2 p-0">
+              <div class="text col-lg-2 col-2 p-0  d-none d-sm-block">
                 <i class="fa-regular fa-clock"></i>
                 <%= recipe.cooking_time %>分
               </div>
-              <div class="col-md-4 p-0 d-flex">
-                <p class="text">難易度</p>
-                <div id="difficulty_<%= recipe.id %>"></div>
+              <div class="col-lg-4 col-5 p-0 d-flex">
+                <p class="text d-none d-sm-block">難易度</p>
+                <div id="difficulty_<%= recipe.id %>", class=" d-none d-sm-block"></div>
                 <script>
                   $(document).on('turbolinks:load', function() {
                     let elem = document.querySelector('#difficulty_<%= recipe.id %>');
@@ -73,7 +69,7 @@
                   });
                 </script>
               </div>
-              <div class="text col-md-2 ml-auto p-0 text-right">
+              <div class="text col-lg-2 col-2 ml-auto p-0 text-right d-none d-sm-block">
                 ❤️<%= recipe.likes.count %>いいね
               </div>
             </div>
@@ -81,18 +77,22 @@
               <%= link_to recipe.customer.name, customer_path(recipe.customer.id), class: "text-title ml-4" %>
             </div>
             <div class="row pt-2">
-              <div class="col-1"></div>
+              <div class="col-lg-1 col-1"></div>
               <%= link_to recipe.dish_name, recipe_path(recipe.id), class: "text-title h4" %>
             </div>
-            <div class="row pt-3">
-              <div class="col-1"></div>
-              <div class="text col-11 border text-break mb-1"><%= recipe.explanation %></div>
+            <div class="row pt-sm-3 pt-0">
+              <div class="col-lg-1 col-1"></div>
+              <div class="text col-lg-7 col-7 text-break mb-1">
+                <div class="txt-limit row border">
+                  <%= recipe.explanation %>
+                </div>
+              </div>
+              <div class="col-lg-4 col-4 text-right p-0">
+              <% if recipe.image %>
+                <%= image_tag recipe.image, size: "170x170", class: "recipe-image" %>
+              <% end %>
             </div>
           </div>
-          <div class="col-md-3">
-            <% if recipe.image %>
-              <%= image_tag recipe.image, size: "200x200", class: "" %>
-            <% end %>
           </div>
         </div>
       <% end %>
@@ -105,10 +105,9 @@
     <% end %>
   <% end %>
   <div class="row">
-    <div class="col-4"></div>
     <% if current_customer.id == @customer.id %>
-      <%= link_to "いいね履歴へ＞", likes_customers_path, class: "text mr-5 mt-5" %>
-      <%= link_to "下書き一覧へ＞", draft_path, class: "text mt-5" %>
+      <%= link_to "いいね履歴へ＞", likes_customers_path, class: "text ml-auto my-5" %>
+      <%= link_to "下書き一覧へ＞", draft_path, class: "text mt-5 mx-auto" %>
     <% end %>
   </div>
 </div>
