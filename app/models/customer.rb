@@ -30,6 +30,7 @@ class Customer < ApplicationRecord
     find_or_create_by!(email: 'guest@example.com') do |customer|
       customer.password = SecureRandom.urlsafe_base64
       customer.name = "ゲスト"
+      customer.image = ActiveStorage::Blob.create_and_upload!(io: File.open("#{Rails.root}/db/fixtures/guest.jpg"), filename:"guest.jpg")
     end
   end
 
