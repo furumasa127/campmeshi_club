@@ -103,8 +103,8 @@
   <h4 class="text-title d-flex justify-content-center pt-5 pb-3">コメント件数:<%= @recipe.comments.count %></h4>
   <% @recipe.comments.each do |comment| %>
     <div class="row">
-      <div class="col-md-2"></div>
-      <div class="text col-md-2 col-2 m-auto">
+      <div class="col-md-2 col-1"></div>
+      <div class="text col-md-2 col-4">
         <%= comment.customer.name %>
       </div>
       <div class="text col-md-5 col-5 p-0 text-break">

@@ -1,6 +1,9 @@
 <div class="container">
   <h3 class="text-title d-flex justify-content-center pt-5 -b-5">レシピ一覧</h3>
   <div class="row">
+    <%= link_to "コメント一覧へ", admin_comments_path, class: "text btn btn-outline-secondary mb-3 mr-5 ml-auto" %>
+  </div>
+  <div class="row">
     <div class="col-2"></div>
     <table class="table table-hover table-inverse col-9">
       <tr class="table-active">
@@ -25,12 +28,13 @@
            <%= recipe.customer.name %>
           </td>
           <td>
-            <%= link_to "コメント一覧へ＞", admin_comments_path, class: "text" %>
             <%= link_to "削除する", admin_recipe_path(recipe.id), method: :delete, "data-confirm" => "投稿を削除しますか？", class: "btn btn-danger"%>
           </td>
         </tr>
       <% end %>
     </table>
   </div>
-  <%= paginate(@recipes) %>
+  <div class="d-flex justify-content-center mb-4">
+    <%= paginate(@recipes) %>
+  </div>
 </div>

@@ -19,7 +19,7 @@
               <%= image_tag recipe.image, size: "100x100" %>
             <% end %>
           </td>
-          <td><%= link_to "編集", edit_recipe_path(recipe),data: {"turbolinks"=>false}, class: "text" %></td>
+          <td><%= link_to "編集", edit_recipe_path(recipe),data: {"turbolinks"=>false}, class: "btn btn-success" %></td>
         </tr>
       <% end %>
     </table>

@@ -36,17 +36,13 @@ class Recipe < ApplicationRecord
     validates :difficulty, presence: true
     validates :cooking_time, presence: true
     validates :genre_id, presence: true
-  end
-  
-  validates_associated :recipe_details
+    
+     validates_associated :recipe_details
   validates :recipe_details, presence: true
-  with_options presence: true do
-    #validates :ingredient, presence: true
-#    validates :quantity, presence: true, numericality: { allow_blank: true}
-  end
   
   validates_associated :recipe_steps
   validates :recipe_steps, presence: true
+  end
 end
 
 
