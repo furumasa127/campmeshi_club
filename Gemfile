@@ -6,7 +6,9 @@ ruby '3.1.2'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
 gem 'rails', '~> 6.1.7', '>= 6.1.7.6'
 # Use sqlite3 as the database for Active Record
-gem 'sqlite3', '~> 1.4'
+group :development, :test do
+  gem 'sqlite3', '~> 1.4'
+end
 # Use Puma as the app server
 gem 'puma', '~> 3.11'
 # Use SCSS for stylesheets
@@ -60,7 +62,7 @@ gem 'kaminari'
 
 gem 'dotenv-rails'
 group :production do
-  gem 'mysql2'
+  gem 'pg'
 end
 
 gem "net-smtp"
