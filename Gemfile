@@ -62,7 +62,7 @@ gem 'kaminari'
 
 gem 'dotenv-rails'
 group :production do
-  gem 'pg'
+  gem 'mysql2'
 end
 
 gem "net-smtp"
